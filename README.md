@@ -2,7 +2,7 @@
 
 Canonical portable Agent Skills for compatible coding agents.
 
-This repo is the source of truth for skills that are distributed elsewhere through wrapper repos like `svelte-skills-kit` and `claude-code-toolkit`. Each skill lives at the repo root, Matt Pocock-style.
+This repo is the source of truth for portable skills that can be installed into compatible agent harnesses.
 
 ## Install
 
@@ -11,12 +11,12 @@ This repo is the source of truth for skills that are distributed elsewhere throu
 npx skills add spences10/skills --list
 
 # Install all skills for a specific agent
-npx skills add spences10/skills --agent claude-code --skill '*'
 npx skills add spences10/skills --agent pi --skill '*'
 npx skills add spences10/skills --agent opencode --skill '*'
+npx skills add spences10/skills --agent codex --skill '*'
 
 # Install one skill
-npx skills add spences10/skills --agent claude-code --skill svelte-runes
+npx skills add spences10/skills --agent pi --skill svelte-runes
 ```
 
 ## Layout
@@ -25,7 +25,7 @@ npx skills add spences10/skills --agent claude-code --skill svelte-runes
 <skill-name>/SKILL.md
 ```
 
-No Claude Code plugin marketplace files live here. Claude-specific distribution is handled by wrapper repos that sync from this canonical source.
+No harness-specific marketplace files live here. Distribution wrappers sync from this canonical source when they need a curated subset.
 
 ## Svelte Skills
 
@@ -39,7 +39,7 @@ No Claude Code plugin marketplace files live here. Claude-specific distribution 
 - `sveltekit-remote-functions`
 - `sveltekit-structure`
 
-## Claude Code Toolkit Skills
+## Workflow & Tooling Skills
 
 - `advanced-prompting`
 - `analytics`
@@ -64,16 +64,11 @@ No Claude Code plugin marketplace files live here. Claude-specific distribution 
 
 ## Wrapper Repos
 
-- `spences10/svelte-skills-kit` syncs the Svelte skill subset into its Claude Code plugin marketplace.
-- `spences10/claude-code-toolkit` syncs toolkit skill subsets into its Claude Code plugin marketplace.
+- The Svelte wrapper syncs the Svelte skill subset.
+- The tooling wrapper syncs workflow and tooling skill subsets.
 
 ## Sync Reminder
 
-When changing a skill that is distributed by a wrapper repo, run the matching sync script before releasing the wrapper:
-
-```bash
-cd ../svelte-skills-kit && ./scripts/sync-from-skills.sh
-cd ../claude-code-toolkit && ./scripts/sync-from-skills.sh
-```
+When changing a skill that is distributed by a wrapper repo, run the matching wrapper sync script before releasing the wrapper.
 
 The sync scripts use explicit allowlists, so add new skills there when a wrapper repo should distribute them.
