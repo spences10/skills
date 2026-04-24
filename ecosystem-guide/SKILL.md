@@ -18,7 +18,7 @@ A curated set of tools for enhanced Claude Code workflows.
 | **mcp-sqlite-tools**  | MCP    | Safe SQLite operations                                       |
 | **mcpick**            | CLI    | Manage MCP servers, plugins, cache, and profiles             |
 | **research**          | Skill  | Verified source research patterns                            |
-| **skill-creator**     | Skill  | Create Claude skills with best practices                     |
+| **skill-creator**     | Skill  | Create Agent Skills with best practices                      |
 
 ## Decision Tree
 
@@ -58,7 +58,7 @@ A curated set of tools for enhanced Claude Code workflows.
 
 → **research skill** - Verified source research, repo cloning patterns
 
-### "I want to create a new Claude skill"
+### "I want to create a new agent skill"
 
 → **skill-creator skill** - Progressive disclosure, writing guide, CLI reference
 
@@ -89,7 +89,7 @@ npx mcpick add omnisearch -- npx -y mcp-omnisearch
 
 ```bash
 npx mcpick enable omnisearch
-# Now Claude has web search, GitHub search, AI answers
+# Now the agent has web search, GitHub search, AI answers
 ```
 
 ### Data Analysis Mode

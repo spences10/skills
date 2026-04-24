@@ -1,6 +1,6 @@
 # Distribution
 
-Sharing and distributing Claude Skills across platforms and teams.
+Sharing and distributing Agent Skills across platforms and teams.
 
 ## Packaging
 

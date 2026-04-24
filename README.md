@@ -45,7 +45,7 @@ No harness-specific marketplace files live here. Distribution wrappers sync from
 - `analytics`
 - `asshole`
 - `ci-debug-workflow`
-- `claude-md-maintenance`
+- `agent-md-maintenance`
 - `deslop`
 - `ecosystem-guide`
 - `improve-codebase-architecture`

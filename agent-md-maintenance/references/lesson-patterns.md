@@ -45,7 +45,7 @@ Too vague. No actionable fix.
 **Don't add:**
 
 - One-time fixes unlikely to recur
-- Generic best practices (Claude knows)
+- Generic best practices (the agent already knows)
 - Rules requiring judgment calls
 
 ## Rule Lifecycle

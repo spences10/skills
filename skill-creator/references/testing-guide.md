@@ -1,6 +1,6 @@
 # Testing Guide
 
-Structured testing methodology for Claude Skills.
+Structured testing methodology for Agent Skills.
 
 ## Manual Testing Workflow
 
@@ -21,21 +21,22 @@ Test that the skill activates when expected:
 
 1. Start a fresh conversation (no prior context)
 2. Make a request that should trigger the skill — use natural language, do not name the skill directly
-3. Verify Claude loads the skill (check if the skill's instructions are being followed)
+3. Verify the agent loads the skill (check if the skill's instructions are being followed)
 4. Make a request that should NOT trigger the skill — verify it stays inactive
 
 **Common trigger issues**:
+
 - Skill triggers too broadly → Make description more specific
 - Skill never triggers → Add keyword-rich trigger phrases ("Use when...")
 - Skill triggers for wrong tasks → Narrow the domain terms in description
 
 ### Step 3: Instruction Following
 
-Once triggered, verify Claude follows the skill's instructions:
+Once triggered, verify the agent follows the skill's instructions:
 
-1. Ask Claude to perform a core task the skill covers
+1. Ask the agent to perform a core task the skill covers
 2. Check the output against skill instructions — are patterns followed?
-3. Ask for a task that requires reference files — does Claude read them?
+3. Ask for a task that requires reference files — does the agent read them?
 4. Run any scripts the skill includes — do outputs match expectations?
 
 ### Step 4: Edge Case Testing
@@ -80,7 +81,7 @@ Test boundary conditions:
 
 - [ ] Skill triggers from natural language requests
 - [ ] Skill does NOT trigger for unrelated requests
-- [ ] Claude follows skill instructions correctly
+- [ ] Agent follows skill instructions correctly
 - [ ] Scripts produce expected output
 - [ ] Reference files are accessed when needed
 
@@ -123,14 +124,14 @@ echo "PASS: Basic structure checks passed"
 
 When tests reveal issues, apply these fixes:
 
-| Symptom | Fix |
-|---------|-----|
-| Skill triggers too often | Make description more specific, remove broad keywords |
-| Skill never triggers | Add trigger keywords, expand description |
-| Claude ignores instructions | Move critical rules higher in SKILL.md, use imperative voice |
-| Claude doesn't read references | Add explicit links in SKILL.md body |
-| Scripts fail | Check shebang, permissions, and dependencies |
-| Too much context loaded | Move content from SKILL.md to references/ |
+| Symptom                       | Fix                                                          |
+| ----------------------------- | ------------------------------------------------------------ |
+| Skill triggers too often      | Make description more specific, remove broad keywords        |
+| Skill never triggers          | Add trigger keywords, expand description                     |
+| Agent ignores instructions    | Move critical rules higher in SKILL.md, use imperative voice |
+| Agent doesn't read references | Add explicit links in SKILL.md body                          |
+| Scripts fail                  | Check shebang, permissions, and dependencies                 |
+| Too much context loaded       | Move content from SKILL.md to references/                    |
 
 See [development-process.md](development-process.md) for the full iteration workflow.
 See [troubleshooting.md](troubleshooting.md) for common issues and fixes.

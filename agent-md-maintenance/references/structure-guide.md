@@ -1,6 +1,6 @@
-# CLAUDE.md Structure Guide
+# Agent Instruction File Structure Guide
 
-Organize for scannability. Claude reads this every request.
+Organize for scannability. The agent reads this context every request.
 
 ## Recommended Sections
 

@@ -1,6 +1,6 @@
-# CLAUDE.md Hierarchy
+# Agent Instruction File Hierarchy
 
-Two levels, both loaded on every request.
+For Claude Code, two levels are loaded on every request.
 
 ## File Locations
 
@@ -100,5 +100,5 @@ Don't repeat global rules in project file. They're already loaded.
 ```markdown
 ## Detailed Conventions
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for full guidelines.
+See `CONTRIBUTING.md` for full guidelines.
 ```

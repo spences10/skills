@@ -77,7 +77,7 @@ selection-foreground = cdd6f4
 
 ## Claude Code Tips
 
-1. **Large scrollback** - Set `scrollback-limit = 50000` for long Claude outputs
+1. **Large scrollback** - Set `scrollback-limit = 50000` for long agent outputs
 2. **No paste protection** - `clipboard-paste-protection = false` avoids prompts
 3. **Shell integration** - Enables better prompt detection for context
 

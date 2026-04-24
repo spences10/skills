@@ -6,7 +6,7 @@ Demand evidence over assertions. Prevent hand-waving.
 
 ### "Prove to me this works"
 
-Forces Claude to demonstrate, not claim:
+Forces the assistant to demonstrate, not claim:
 
 - Run tests and show output
 - Show diffs with before/after
@@ -17,7 +17,7 @@ Forces Claude to demonstrate, not claim:
 ```
 User: Prove to me this works
 
-Claude: Running the test suite:
+Assistant: Running the test suite:
 $ npm test -- --grep "auth"
 ✓ redirects unauthenticated users (23ms)
 ✓ preserves return URL in redirect (18ms)
@@ -41,7 +41,7 @@ Concrete comparison prevents vague claims:
 ````
 User: Show me the before/after
 
-Claude:
+Assistant:
 **Before (line 45-52):**
 ```js
 const data = await fetch(url);
@@ -75,7 +75,7 @@ Prevents skipped complexity:
 
 User: Walk through this line by line
 
-Claude:
+Assistant:
 
 - L1: `const cache = new Map()` - In-memory cache, cleared on restart
 - L2: `const TTL = 60_000` - 60 second expiry, might be too short for your use case
@@ -88,7 +88,7 @@ Claude:
 
 ## Verification Triggers
 
-Use when Claude says:
+Use when the assistant says:
 - "This should work" → "Prove it"
 - "This handles edge cases" → "Show me which ones"
 - "This is more efficient" → "Show me the benchmark"
@@ -100,7 +100,7 @@ Use when Claude says:
 
 User: Prove to me this works
 
-Claude: I'll add a test and run it:
+Assistant: I'll add a test and run it:
 [writes test]
 [runs test]
 [shows passing output]

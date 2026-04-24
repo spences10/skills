@@ -42,7 +42,7 @@ const user = await apiClient.get(`/users/${id}`);
 ```
 ````
 
-For complete endpoint docs: [references/endpoints.md](references/endpoints.md)
+For complete endpoint docs: `references/endpoints.md`
 
 ### Why It Works
 
@@ -157,18 +157,18 @@ description: UI component patterns with DaisyUI v5 for cards, forms, buttons, an
 
 ### Use Case
 
-Ensure Claude follows YOUR project's specific patterns, conventions, and architecture decisions consistently across all conversations.
+Ensure the agent follows YOUR project's specific patterns, conventions, and architecture decisions consistently across all conversations.
 
 ### Why You Need This
 
-Without a project-context skill, Claude:
+Without a project-context skill, the agent:
 
 - Mixes patterns (uses `writable` when you use `$state`)
 - Creates files in wrong locations
 - Uses wrong libraries (Prisma when you use Drizzle)
 - Ignores your naming conventions
 
-With a project-context skill, Claude automatically follows your rules.
+With a project-context skill, the agent automatically follows your rules.
 
 ### Structure
 
@@ -218,9 +218,9 @@ description: Project patterns for [your-app]. Use before any development work to
 
 ## References
 
-- [architecture.md](references/architecture.md) - System design
-- [conventions.md](references/conventions.md) - All naming rules
-- [patterns.md](references/patterns.md) - Code examples
+- `references/architecture.md` - System design
+- `references/conventions.md` - All naming rules
+- `references/patterns.md` - Code examples
 ```
 
 ### Why It Works
@@ -228,13 +228,13 @@ description: Project patterns for [your-app]. Use before any development work to
 - **Specific stack** - Names exact versions and libraries
 - **Critical rules first** - Most important patterns immediately visible
 - **Actionable** - "never do X" is clearer than "prefer Y"
-- **File locations** - Claude knows where to create things
+- **File locations** - The agent knows where to create things
 - **Details in references** - Keeps SKILL.md scannable
 
 ### Creating Your Own
 
 1. List your stack (framework, db, auth, ui)
-2. Identify top 5 mistakes Claude makes in your project
+2. Identify top 5 mistakes the agent makes in your project
 3. Write rules that prevent those mistakes
 4. Add file location patterns
 5. Move detailed docs to references/
@@ -303,9 +303,9 @@ description: [keyword-rich, third person, includes "Use when..." triggers]
 ### Without Script
 
 ```markdown
-Claude generates validation code every time:
+The agent generates validation code every time:
 "Check that all timestamps are valid..."
-[Claude writes 50 lines of JavaScript]
+[Agent writes 50 lines of JavaScript]
 ```
 
 **Cost**: ~500 tokens each time
@@ -333,7 +333,7 @@ node scripts/validate_timestamps.js
 
 ```markdown
 "Create a basic component..."
-[Claude writes boilerplate each time]
+[Agent writes boilerplate each time]
 ```
 
 ### With Assets
@@ -397,7 +397,7 @@ description: Helps with frontend stuff
 
 ### Use Case
 
-Skill that guides Claude on using MCP tools for database operations.
+Skill that guides the agent on using MCP tools for database operations.
 
 ### Structure
 

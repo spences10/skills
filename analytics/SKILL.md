@@ -89,11 +89,11 @@ LIMIT 10;
 
 ## Using with mcp-sqlite-tools
 
-If you have mcp-sqlite-tools configured, Claude can query directly:
+If you have mcp-sqlite-tools configured, the agent can query directly:
 
 1. Open database: `open_database ~/.claude/ccrecall.db`
 2. Tables: `sessions`, `messages`, `tool_calls`, `tool_results`, `teams`, `team_members`, `team_tasks`
-3. Run queries above or ask Claude to analyze patterns
+3. Run queries above or ask the agent to analyze patterns
 
 ## GitHub
 

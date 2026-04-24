@@ -5,7 +5,7 @@ description: "Secret-safe Claude Code sessions via nopeek CLI. Use when user ask
 
 # nopeek — Secret Safety for Claude Code
 
-Secure proxy between Claude Code and your secrets. Claude knows key names, never key values.
+Secure proxy between Claude Code and your secrets. The agent knows key names, never key values.
 
 ## Why
 
@@ -50,16 +50,16 @@ npx nopeek list
 
 ## What the hooks do
 
-| Hook | Event | Purpose |
-|------|-------|---------|
-| session-load.sh | SessionStart | Loads stored keys + CLI profiles into `CLAUDE_ENV_FILE` |
+| Hook             | Event            | Purpose                                                 |
+| ---------------- | ---------------- | ------------------------------------------------------- |
+| session-load.sh  | SessionStart     | Loads stored keys + CLI profiles into `CLAUDE_ENV_FILE` |
 | redact-output.sh | PreToolUse(Bash) | Wraps cloud CLI output through secret pattern redaction |
 
 ## Limitations
 
 - **Redaction is best-effort.** Regex patterns catch known formats (AWS keys, bearer tokens, Stripe keys, private key headers, connection strings) but cannot catch every possible secret.
 - **This is a safety net, not a guarantee.** The primary defense is loading secrets via `CLAUDE_ENV_FILE` so they never appear in output at all.
-- **No PostToolUse output redaction.** Claude Code doesn't support modifying Bash output after execution. The PreToolUse hook rewrites commands to filter output before Claude sees it.
+- **No PostToolUse output redaction.** Claude Code doesn't support modifying Bash output after execution. The PreToolUse hook rewrites commands to filter output before the agent sees it.
 - **Commands with pipes or redirections are not wrapped.** The redaction hook skips commands containing `|`, `>`, or `<` to avoid breaking complex command semantics.
 - **Requires jq.** The redact hook will not fire without jq installed.
 - **Waiting on anthropics/claude-code#39882** — PreApiCall/PostApiCall hooks would enable full payload redaction before data leaves your machine.
@@ -75,11 +75,13 @@ Scans current directory for .env files containing secrets and checks .gitignore 
 ## Troubleshooting
 
 **Keys not loading on session start:**
+
 - Check `npx nopeek status` — are keys stored?
 - Verify the plugin is installed: `/plugin list`
 - Try `/reload-plugins`
 
 **Cloud CLI still showing secrets:**
+
 - The redaction hook only fires for commands starting with known CLI names (aws, hcloud, kubectl, doctl, gcloud, az, terraform)
 - Commands with pipes or redirections are skipped to avoid breaking semantics
 - Run `npx nopeek load .env` to make secrets available as env vars, then use `$VAR_NAME` in commands

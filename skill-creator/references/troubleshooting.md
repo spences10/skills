@@ -4,7 +4,7 @@ Common skill development issues and fixes.
 
 ## Skill Not Triggering
 
-**Symptom**: Claude does not activate the skill when expected.
+**Symptom**: The agent does not activate the skill when expected.
 
 **Causes and fixes**:
 
@@ -30,9 +30,9 @@ Common skill development issues and fixes.
 
 **Test**: Make requests outside the skill's domain and verify the skill stays inactive.
 
-## Claude Ignores Skill Instructions
+## Agent Ignores Skill Instructions
 
-**Symptom**: Skill loads but Claude doesn't follow the documented patterns.
+**Symptom**: Skill loads but the agent doesn't follow the documented patterns.
 
 **Causes and fixes**:
 
@@ -43,17 +43,17 @@ Common skill development issues and fixes.
 | Conflicting instructions | Remove contradictions; one clear rule per concern |
 | Too much content in SKILL.md | Move details to references/, keep SKILL.md under 150 lines |
 
-## Claude Doesn't Read References
+## Agent Doesn't Read References
 
-**Symptom**: Claude answers from general knowledge instead of reading reference files.
+**Symptom**: The agent answers from general knowledge instead of reading reference files.
 
 **Causes and fixes**:
 
 | Cause | Fix |
 |-------|-----|
-| No links in SKILL.md | Add explicit links: `See [references/guide.md](references/guide.md)` |
+| No links in SKILL.md | Add explicit links, e.g. `See references/guide.md` |
 | Links not descriptive | Describe what each reference contains |
-| SKILL.md answers the question | If the answer is in SKILL.md, Claude won't dig deeper — move detailed content to references |
+| SKILL.md answers the question | If the answer is in SKILL.md, the agent won't dig deeper — move detailed content to references |
 
 ## Frontmatter Issues
 

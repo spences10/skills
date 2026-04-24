@@ -1,12 +1,12 @@
 # Skill Writing Guide
 
-Detailed guidelines for writing effective Claude skills.
+Detailed guidelines for writing effective Agent Skills.
 
 ## Voice and Tone
 
 ### Use Imperative Voice
 
-Claude responds best to direct instructions.
+Agents respond best to direct instructions.
 
 #### Good Examples
 
@@ -85,7 +85,7 @@ architectural patterns affect your implementation...
 
 ## Description Writing
 
-The description determines when Claude triggers your skill. Make it count.
+The description determines when the agent triggers your skill. Make it count.
 
 **Write in third person.** The description is injected into the system prompt; inconsistent point-of-view causes discovery problems.
 
@@ -139,7 +139,7 @@ Match instruction specificity to the task's fragility and variability.
 
 ### High Freedom (text-based instructions)
 
-Use when output varies by context and Claude's judgment adds value.
+Use when output varies by context and the agent's judgment adds value.
 
 ```markdown
 ## Code review process
@@ -246,9 +246,9 @@ Link to detailed references.
 
 For detailed information:
 
-- [references/api-docs.md](references/api-docs.md) - Complete API reference
-- [references/authentication.md](references/authentication.md) - Auth patterns
-- [references/examples.md](references/examples.md) - 20+ usage examples
+- `references/api-docs.md` - Complete API reference
+- `references/authentication.md` - Auth patterns
+- `references/examples.md` - 20+ usage examples
 ```
 
 **Guidelines**:
@@ -419,7 +419,7 @@ references/schema.md has complete schema
 
 ### Avoid Deeply Nested References
 
-Claude may partially read files referenced from other referenced files, using `head -100` to preview rather than reading completely.
+The agent may partially read files referenced from other referenced files, using `head -100` to preview rather than reading completely.
 
 ```markdown
 # Bad: Too deep
@@ -475,7 +475,7 @@ scripts\helper.py     ❌
 
 ### Checklist Pattern
 
-For complex multi-step tasks, provide a checklist Claude can copy and track:
+For complex multi-step tasks, provide a checklist the agent can copy and track:
 
 ````markdown
 ## Form filling workflow
@@ -507,7 +507,7 @@ Run validator → fix errors → repeat. Greatly improves output quality:
 
 ### Plan-Validate-Execute Pattern
 
-For complex open-ended tasks, have Claude create a plan file, validate it, then execute:
+For complex open-ended tasks, have the agent create a plan file, validate it, then execute:
 
 ```markdown
 ## Batch update workflow
@@ -519,7 +519,7 @@ For complex open-ended tasks, have Claude create a plan file, validate it, then 
 
 ### Conditional Workflow Pattern
 
-Guide Claude through decision points:
+Guide the agent through decision points:
 
 ```markdown
 ## Document modification
@@ -566,6 +566,6 @@ Before finalizing a skill:
 ### Testing
 
 - [ ] Tested in real conversations
-- [ ] Claude triggers skill correctly
+- [ ] Agent triggers skill correctly
 - [ ] Instructions are clear
 - [ ] Examples work as shown

@@ -16,7 +16,7 @@ project-scratch/      # Throwaway: experiments
 
 ## Session Isolation Benefits
 
-Each Claude session in separate worktree:
+Each agent session in a separate worktree:
 
 - **No conflicts** - Different files, different branches
 - **Context preserved** - Each session maintains own state

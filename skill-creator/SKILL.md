@@ -1,12 +1,12 @@
 ---
 name: skill-creator
 # prettier-ignore
-description: "Design and create Claude Skills using progressive disclosure principles. Use when building new skills, planning skill architecture, or writing skill content."
+description: "Design and create Agent Skills using progressive disclosure principles. Use when building new skills, planning skill architecture, or writing skill content."
 ---
 
 # Skill Creator
 
-Create effective Claude Skills using progressive disclosure.
+Create effective Agent Skills using progressive disclosure.
 
 ## When to Create a Skill
 
@@ -14,7 +14,7 @@ Create a skill when you notice:
 
 - **Repeating context** across conversations
 - **Domain expertise** needed repeatedly
-- **Project-specific knowledge** Claude should know automatically
+- **Project-specific knowledge** the agent should know automatically
 
 ## Progressive Disclosure
 

@@ -1,14 +1,14 @@
 ---
 name: advanced-prompting
 # prettier-ignore
-description: "High-leverage prompts that challenge Claude's defaults. Use for \"grill me\", \"prove it works\", \"scrap this\", \"what would 10x engineer do\", \"find ways this fails\"."
+description: "High-leverage prompts that challenge assistant defaults. Use for \"grill me\", \"prove it works\", \"scrap this\", \"what would 10x engineer do\", \"find ways this fails\"."
 ---
 
 # Advanced Prompting Patterns
 
 ## Quick Start
 
-Use these when Claude's first response feels safe/generic:
+Use these when the assistant's first response feels safe/generic:
 
 1. **Challenge** - "Grill me on these changes"
 2. **Verify** - "Prove to me this works"
@@ -18,7 +18,7 @@ Use these when Claude's first response feels safe/generic:
 
 ### Challenge Prompts
 
-Force Claude to critique rather than accept:
+Force the assistant to critique rather than accept:
 
 - "Grill me on these changes" - Get pushback on your approach
 - "What would a 10x engineer do differently" - Surface better patterns
@@ -42,12 +42,12 @@ Break out of local optima:
 
 ## When to Use
 
-| Situation                      | Prompt Pattern       |
-| ------------------------------ | -------------------- |
-| Code review feels shallow      | Challenge prompts    |
-| Implementation seems fragile   | Verification prompts |
-| Solution feels hacky           | Reset prompts        |
-| Claude is agreeing too readily | "Push back on this"  |
+| Situation                         | Prompt Pattern       |
+| --------------------------------- | -------------------- |
+| Code review feels shallow         | Challenge prompts    |
+| Implementation seems fragile      | Verification prompts |
+| Solution feels hacky              | Reset prompts        |
+| Assistant is agreeing too readily | "Push back on this"  |
 
 ## Anti-Patterns
 

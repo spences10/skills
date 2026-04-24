@@ -17,7 +17,7 @@ Abandons sunk cost, starts fresh:
 ````
 User: [after 3 iterations of patching] Scrap this and implement the elegant solution
 
-Claude: Looking at the actual requirement - you need rate limiting per user.
+Assistant: Looking at the actual requirement - you need rate limiting per user.
 
 Delete all of this. Use express-rate-limit with a custom keyGenerator:
 
@@ -46,7 +46,7 @@ Direct simplification pressure:
 
 User: You're overcomplicating this
 
-Claude: You're right. Stripped down version:
+Assistant: You're right. Stripped down version:
 
 - Removed the factory pattern (you have one implementation)
 - Removed the event emitter (you only need the callback)
@@ -68,7 +68,7 @@ Ruthless scope cutting:
 
 User: What's the 80/20 version
 
-Claude: Drop these for v1:
+Assistant: Drop these for v1:
 
 - Custom themes (ship with one good default)
 - CSV export (users can copy-paste from table)
@@ -84,7 +84,7 @@ Use reset prompts when:
 - You've iterated 3+ times on same code
 - The solution keeps growing in complexity
 - You feel like you're fighting the code
-- Claude is patching patches
+- The assistant is patching patches
 
 ## Timing Matters
 
@@ -120,5 +120,5 @@ What's the simplest possible implementation?
 
 ```
 
-This resets Claude's context bias toward previous approaches.
+This resets the assistant's context bias toward previous approaches.
 ```

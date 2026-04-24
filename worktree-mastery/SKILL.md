@@ -1,16 +1,16 @@
 ---
 name: worktree-mastery
 # prettier-ignore
-description: "Git worktree patterns for parallel Claude sessions. Run multiple Claude instances on same repo without conflicts."
+description: "Git worktree patterns for parallel agent sessions. Run multiple coding-agent instances on the same repo without conflicts."
 ---
 
 # Worktree Mastery
 
-Run 3-5 parallel Claude sessions on same repo. "The single biggest productivity unlock." - Boris Cherny
+Run 3-5 parallel agent sessions on the same repo. "The single biggest productivity unlock." - Boris Cherny
 
 ## Core Concept
 
-Git worktrees = independent working directories sharing one repo. Each Claude session gets its own worktree. No branch conflicts, no stash juggling.
+Git worktrees = independent working directories sharing one repo. Each agent session gets its own worktree. No branch conflicts, no stash juggling.
 
 ## Quick Setup
 
@@ -46,7 +46,7 @@ myproject-docs/      # Documentation session
 ## Workflow
 
 1. **Create worktrees** before starting parallel work
-2. **Start Claude** in each worktree directory
+2. **Start your coding agent** in each worktree directory
 3. **Work independently** - each session has isolated state
 4. **Sync via git** - commit in one, pull in another
 5. **Cleanup** when done

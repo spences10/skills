@@ -1,6 +1,6 @@
 # Development Process
 
-Step-by-step workflow for creating effective Claude Skills.
+Step-by-step workflow for creating effective Agent Skills.
 
 ## The Eight Steps
 
@@ -137,7 +137,7 @@ Add progressive enhancements:
 **Scripts** - When operations are:
 
 - Deterministic (same input = same output)
-- Complex (would require Claude to generate code)
+- Complex (would require the agent to generate code)
 - Reusable (used frequently)
 
 Examples: validators, code generators, formatters
@@ -156,14 +156,14 @@ Test and refine:
 
 - Start a new conversation
 - Trigger the skill naturally (don't force it)
-- Observe if Claude loads it appropriately
+- Observe if the agent loads it appropriately
 - Check if the content is helpful and sufficient
 
 **Refining**:
 
 - If skill loads too often → Make description more specific
 - If skill never loads → Add trigger keywords to description
-- If Claude asks for info that's in references → Add links in SKILL.md
+- If the agent asks for info that's in references → Add links in SKILL.md
 - If SKILL.md feels bloated → Move content to references
 - If you're repeating the same complex operation → Create a script
 
@@ -225,8 +225,8 @@ Before considering a skill complete, run through these checks:
 
 - [ ] Skill triggers from natural language (don't name the skill directly)
 - [ ] Skill does NOT trigger for unrelated requests
-- [ ] Claude follows instructions from SKILL.md
-- [ ] Claude reads reference files when needed
+- [ ] Agent follows instructions from SKILL.md
+- [ ] Agent reads reference files when needed
 - [ ] Scripts produce expected output
 
 ### Content Quality
@@ -247,5 +247,5 @@ For common issues during development, see [troubleshooting.md](troubleshooting.m
 - **Start minimal**: Better to add than to remove
 - **Test early**: Don't perfect in isolation
 - **Use real examples**: Concrete beats abstract
-- **Trust progressive disclosure**: Claude will ask for references when needed
+- **Trust progressive disclosure**: the agent will ask for references when needed
 - **Iterate based on usage**: Let real conversations drive refinement

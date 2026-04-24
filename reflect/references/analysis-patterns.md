@@ -6,13 +6,13 @@ Rules for detecting learnings in conversation history.
 
 Direct user corrections indicate wrong assumptions:
 
-| Pattern    | Example                      | Learning Type       |
-| ---------- | ---------------------------- | ------------------- |
-| "actually" | "actually, use pnpm not npm" | Tool preference     |
-| "no, "     | "no, that file is in src/"   | Path knowledge      |
-| "instead"  | "use X instead of Y"         | Approach preference |
-| "don't"    | "don't add comments"         | Style rule          |
-| Reverts    | User undoes Claude's change  | Wrong approach      |
+| Pattern    | Example                        | Learning Type       |
+| ---------- | ------------------------------ | ------------------- |
+| "actually" | "actually, use pnpm not npm"   | Tool preference     |
+| "no, "     | "no, that file is in src/"     | Path knowledge      |
+| "instead"  | "use X instead of Y"           | Approach preference |
+| "don't"    | "don't add comments"           | Style rule          |
+| Reverts    | User undoes the agent's change | Wrong approach      |
 
 ## Success Patterns (Medium Confidence)
 
@@ -21,7 +21,7 @@ Indicators of good approaches:
 | Pattern              | Example                            | Learning Type      |
 | -------------------- | ---------------------------------- | ------------------ |
 | "perfect"            | "perfect, that's what I wanted"    | Validated approach |
-| "yes" after proposal | Claude proposes, user approves     | Confirmed pattern  |
+| "yes" after proposal | Agent proposes, user approves      | Confirmed pattern  |
 | Tests pass           | Build/test succeeds after change   | Working solution   |
 | No correction        | Multi-step task completes smoothly | Valid workflow     |
 

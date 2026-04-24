@@ -16,11 +16,11 @@ Key insights from Anthropic's official Agent Skills documentation.
 
 ### The 3-Level Loading System
 
-| Level  | File                                           | Context Window             | Token Budget | When Loaded   |
-| ------ | ---------------------------------------------- | -------------------------- | ------------ | ------------- |
-| **1**  | SKILL.md Metadata (YAML)                       | Always loaded              | ~100 tokens  | At startup    |
-| **2**  | SKILL.md Body (Markdown)                       | Loaded when skill triggers | <5k tokens   | When relevant |
-| **3+** | Bundled files (references/, scripts/, assets/) | Loaded as needed by Claude | Unlimited\*  | On-demand     |
+| Level  | File                                           | Context Window                | Token Budget | When Loaded   |
+| ------ | ---------------------------------------------- | ----------------------------- | ------------ | ------------- |
+| **1**  | SKILL.md Metadata (YAML)                       | Always loaded                 | ~100 tokens  | At startup    |
+| **2**  | SKILL.md Body (Markdown)                       | Loaded when skill triggers    | <5k tokens   | When relevant |
+| **3+** | Bundled files (references/, scripts/, assets/) | Loaded as needed by the agent | Unlimited\*  | On-demand     |
 
 \*No practical limit - files only load when accessed
 
@@ -33,7 +33,7 @@ Key insights from Anthropic's official Agent Skills documentation.
 **Benefits**:
 
 - Install many skills without context penalty
-- Claude only knows each skill exists and when to use it (Level 1)
+- The agent only knows each skill exists and when to use it (Level 1)
 - Detailed content doesn't consume tokens until needed
 - Effectively unbounded context per skill (via Level 3)
 
@@ -43,18 +43,18 @@ Key insights from Anthropic's official Agent Skills documentation.
 
 ### Skill Discovery and Loading
 
-1. **Startup**: Claude pre-loads `name` and `description` of every installed skill into system prompt
+1. **Startup**: The agent pre-loads `name` and `description` of every installed skill into system prompt
 2. **User request**: User makes a request that might need a skill
-3. **Skill matching**: Claude scans available skills to find relevant matches
-4. **Skill loading**: If relevant, Claude reads SKILL.md from filesystem via bash
-5. **On-demand access**: Claude reads additional files (references/, scripts/) as needed
+3. **Skill matching**: The agent scans available skills to find relevant matches
+4. **Skill loading**: If relevant, the agent reads SKILL.md from filesystem via bash
+5. **On-demand access**: The agent reads additional files (references/, scripts/) as needed
 
 ### The Filesystem Architecture
 
-Skills run in a code execution environment where Claude has:
+Skills run in a code execution environment where the agent has:
 
 - **Filesystem access**: Skills exist as directories on a virtual machine
-- **Bash commands**: Claude uses bash to read files and execute scripts
+- **Bash commands**: The agent uses bash to read files and execute scripts
 - **Code execution**: Scripts run without loading code into context
 
 **Key insight**: Script code never enters the context window. Only the output does. This makes scripts far more token-efficient than generating equivalent code on the fly.
@@ -69,7 +69,7 @@ Skills run in a code execution environment where Claude has:
 
 **Process**:
 
-- Use Claude on real tasks
+- Use the agent on real tasks
 - Notice where it struggles
 - Create skills to fill gaps
 - Test and iterate
@@ -83,19 +83,19 @@ Skills run in a code execution environment where Claude has:
 - Keep SKILL.md under ~5k words
 - Split mutually exclusive contexts into separate files
 - Use code for both execution and documentation
-- Make it clear whether Claude should run or read scripts
+- Make it clear whether the agent should run or read scripts
 
-### 3. Think from Claude's Perspective
+### 3. Think from the Agent's Perspective
 
 > "Monitor how Claude uses your skill in real scenarios and iterate based on observations: watch for unexpected trajectories or overreliance on certain contexts."
 
 **Key areas**:
 
 - `name` and `description` drive skill triggering
-- Claude decides whether to use the skill based on metadata
+- The agent decides whether to use the skill based on metadata
 - Observe actual usage patterns, not assumed ones
 
-### 4. Iterate with Claude
+### 4. Iterate with the Agent
 
 > "As you work on a task with Claude, ask Claude to capture its successful approaches and common mistakes into reusable context and code within a skill."
 
@@ -114,7 +114,7 @@ Skills run in a code execution environment where Claude has:
 
 > Match the level of specificity to the task's fragility and variability.
 
-- **High freedom** (text instructions): Output varies by context, Claude's judgment adds value
+- **High freedom** (text instructions): Output varies by context, the agent's judgement adds value
 - **Medium freedom** (pseudocode/scripts with params): Process is consistent but details vary
 - **Low freedom** (exact scripts): Exact execution matters — migrations, compliance, deployments
 
@@ -126,7 +126,7 @@ What works for Opus may need more detail for Haiku. If using across models, aim 
 
 ---
 
-## Writing for Claude
+## Writing for Agents
 
 ### Skills as "Onboarding Guides"
 
@@ -233,7 +233,7 @@ skill-name/
 ### Script Execution Model
 
 ```bash
-# Claude runs script
+# Agent runs script
 bash: node scripts/validate_form.js form.pdf
 
 # Output (only this enters context)
@@ -242,7 +242,7 @@ Found 12 fillable fields
 ```
 
 **Context consumed**: ~20 tokens (just the output)
-**Alternative (Claude generates validation code)**: ~500 tokens
+**Alternative (agent generates validation code)**: ~500 tokens
 
 **50x more efficient**
 
@@ -256,7 +256,7 @@ Found 12 fillable fields
 
 **Risk**: Malicious skills can:
 
-- Direct Claude to invoke tools in harmful ways
+- Direct the agent to invoke tools in harmful ways
 - Execute code with unintended effects
 - Exfiltrate data to external systems
 - Compromise system security
@@ -388,13 +388,15 @@ Skills generally fall into these categories:
 ### Domain Knowledge Skills
 
 Encode expertise about a specific domain, technology, or codebase:
+
 - Project context and conventions
 - API documentation and patterns
 - Database schema and query patterns
 
 ### Workflow Skills
 
-Guide Claude through multi-step processes:
+Guide the agent through multi-step processes:
+
 - Code review checklists
 - Deployment procedures
 - Testing workflows
@@ -402,7 +404,8 @@ Guide Claude through multi-step processes:
 
 ### Tool Integration Skills
 
-Bridge Claude to external tools and systems:
+Bridge the agent to external tools and systems:
+
 - MCP server usage patterns (see [mcp-integration.md](mcp-integration.md))
 - CLI tool documentation
 - Service-specific workflows
@@ -410,6 +413,7 @@ Bridge Claude to external tools and systems:
 ### Generator Skills
 
 Create or transform content:
+
 - Code scaffolding with scripts
 - Document generation from templates
 - Data transformation pipelines
@@ -420,10 +424,11 @@ Create or transform content:
 
 ### Linear Workflow
 
-Skill guides Claude through ordered steps:
+Skill guides the agent through ordered steps:
 
 ```markdown
 ## Deployment Process
+
 1. Run validation: `node scripts/validate.js`
 2. Build the project
 3. Run tests
@@ -438,6 +443,7 @@ Skill provides branching logic based on conditions:
 
 ```markdown
 ## Error Handling
+
 - If HTTP 401 → Re-authenticate, retry once
 - If HTTP 429 → Wait and retry with backoff
 - If HTTP 5xx → Log error, alert, do not retry
@@ -449,6 +455,7 @@ Skill defines a loop for refinement:
 
 ```markdown
 ## Review Cycle
+
 1. Run linter
 2. Fix reported issues
 3. Run tests
@@ -486,7 +493,7 @@ Skill defines a loop for refinement:
 
 ### Checklist Pattern
 
-Provide a checklist Claude copies and tracks through multi-step tasks.
+Provide a checklist the agent copies and tracks through multi-step tasks.
 
 ### Feedback Loop Pattern
 
@@ -506,7 +513,7 @@ Input/output pairs for output-quality-dependent skills. Examples communicate sty
 
 ### Conditional Workflow Pattern
 
-Guide Claude through decision points with branching logic.
+Guide the agent through decision points with branching logic.
 
 ---
 
@@ -528,6 +535,6 @@ Guide Claude through decision points with branching logic.
 **Optimize for**:
 
 - Token efficiency (3-level loading)
-- Claude's perspective (discovery via metadata)
+- Agent's perspective (discovery via metadata)
 - Real usage (iterate based on observation)
 - Scalability (split when too large)
