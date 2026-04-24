@@ -2,7 +2,7 @@
 
 Canonical portable Agent Skills for compatible coding agents.
 
-This repo is the source of truth for skills that are distributed elsewhere through wrapper repos like `svelte-skills-kit` and `claude-code-toolkit`.
+This repo is the source of truth for skills that are distributed elsewhere through wrapper repos like `svelte-skills-kit` and `claude-code-toolkit`. Each skill lives at the repo root, Matt Pocock-style.
 
 ## Install
 
@@ -22,7 +22,7 @@ npx skills add spences10/skills --agent claude-code --skill svelte-runes
 ## Layout
 
 ```text
-skills/<skill-name>/SKILL.md
+<skill-name>/SKILL.md
 ```
 
 No Claude Code plugin marketplace files live here. Claude-specific distribution is handled by wrapper repos that sync from this canonical source.
