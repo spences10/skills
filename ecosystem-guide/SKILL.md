@@ -1,137 +1,137 @@
 ---
 name: ecosystem-guide
-description: "Guide to spences10's Claude Code ecosystem tools. Use when user asks which tool to use, how tools relate, or needs help choosing between MCP servers, skills, or CLIs."
+description: "Guide to Scott's agent workflow tools. Use when choosing between skills, skill validation, MCP servers, recall CLIs, search/database tooling, nopeek credential safety, or when connecting how these tools fit together across agent harnesses."
 ---
 
-# Claude Code Ecosystem Guide
+# Agent Workflow Ecosystem Guide
 
-A curated set of tools for enhanced Claude Code workflows.
+A vendor-agnostic map of the tools Scott uses across coding agents. Skills usually activate naturally from the task; use this guide when the user asks which tool fits, how tools relate, or how to combine recall, search, SQLite, MCPs, and secret-safe workflows.
 
 ## The Stack
 
-| Tool                  | Type   | Purpose                                                      |
-| --------------------- | ------ | ------------------------------------------------------------ |
-| **toolkit-skills**    | Plugin | Forced-eval hook + core skills (pair with any skills plugin) |
-| **svelte-skills-kit** | Plugin | Svelte/SvelteKit skills (pair with toolkit-skills)           |
-| **ccrecall**          | CLI    | Sync transcripts → SQLite for analytics                      |
-| **mcp-omnisearch**    | MCP    | Unified search (Tavily, Kagi, GitHub, etc.)                  |
-| **mcp-sqlite-tools**  | MCP    | Safe SQLite operations                                       |
-| **mcpick**            | CLI    | Manage MCP servers, plugins, cache, and profiles             |
-| **research**          | Skill  | Verified source research patterns                            |
-| **skill-creator**     | Skill  | Create Agent Skills with best practices                      |
+| Tool                 | Type  | Purpose                                                     |
+| -------------------- | ----- | ----------------------------------------------------------- |
+| **skills**           | Repo  | Canonical portable Agent Skills for compatible harnesses    |
+| **check-skills**     | CLI   | Validate/lint portable Agent Skills against agentskills.io  |
+| **pirecall**         | CLI   | Sync/search Pi agent sessions in `~/.pi/pirecall.db`        |
+| **ccrecall**         | CLI   | Sync/search Claude Code sessions in `~/.claude/ccrecall.db` |
+| **nopeek**           | CLI   | Load/use secrets without exposing values to agent context   |
+| **mcp-omnisearch**   | MCP   | Unified web/search/AI answers/content extraction            |
+| **mcp-sqlite-tools** | MCP   | Safe SQLite inspection, querying, schema work, backups      |
+| **mcpick**           | CLI   | Manage MCP servers, plugins, cache, and profiles            |
+| **research**         | Skill | Verified source research patterns                           |
+| **skill-creator**    | Skill | Create portable Agent Skills with best practices            |
 
 ## Decision Tree
 
-### "I want skills to activate reliably"
+### "I need context from previous sessions"
 
-→ **toolkit-skills** - Forced-eval hook evaluates every prompt against available skills. Install alongside any skills plugin.
+→ **pirecall** for Pi sessions, **ccrecall** for Claude Code sessions. Use the CLI for quick recall/search, or query the SQLite database directly with **mcp-sqlite-tools** for flexible analysis.
 
-### "I need to search the web"
+```bash
+pnpx pirecall recall "what did we decide about skills?" --json
+pnpx pirecall search "mcp-sqlite-tools" --json
+pnpx ccrecall recall "last auth work" --json
+```
 
-→ **mcp-omnisearch** - Web search, GitHub code search, AI answers
+### "I need to search or verify something online"
 
-### "I need to query a database"
+→ **mcp-omnisearch** for web search, AI answers, extraction, and source-backed research. Pair with the **research** skill when sources matter.
 
-→ **mcp-sqlite-tools** - Read/write SQLite with safety guards
+### "I need to inspect or analyze a SQLite database"
+
+→ **mcp-sqlite-tools**. Use it for `pirecall.db`, `ccrecall.db`, application SQLite files, CSV-style analysis, schema inspection, backups, and safe read/write separation.
+
+### "I need secrets or .env values available safely"
+
+→ **nopeek**. Load secret values into the session without printing them into tool output or conversation context.
+
+```bash
+pnpx nopeek load .env
+pnpx nopeek status
+pnpx nopeek audit
+```
 
 ### "I have too many MCPs eating context"
 
-→ **mcpick** - Enable/disable servers per-project
+→ **mcpick**. Enable only the MCP servers needed for the current project or workflow.
 
-### "I need to install or update plugins"
-
-→ **mcpick** - `mcpick plugins install|update|list`
-
-### "My plugin cache is stale after a version bump"
-
-→ **mcpick** - `mcpick cache clear` or `mcpick cache clean-orphaned`
-
-### "I want to track my Claude Code usage"
-
-→ **ccrecall** - Sync transcripts, query with mcp-sqlite-tools
+```bash
+pnpx mcpick enable omnisearch sqlite-tools
+pnpx mcpick disable omnisearch
+pnpx mcpick profile save research-mode
+```
 
 ### "I'm building with Svelte/SvelteKit"
 
-→ **svelte-skills-kit** - Runes, routing, data flow patterns
+→ Use the Svelte skills in this repo: `svelte-runes`, `sveltekit-data-flow`, `sveltekit-structure`, `sveltekit-remote-functions`, `svelte-components`, and related skills.
 
-### "I need to research a topic or verify sources"
+### "I want to create, edit, or validate a skill"
 
-→ **research skill** - Verified source research, repo cloning patterns
+→ **skill-creator** for new skills; **check-skills** after creating or editing portable Agent Skills; **agent-md-maintenance** for persistent agent instruction files; **ecosystem-guide** when updating the map of tools.
 
-### "I want to create a new agent skill"
-
-→ **skill-creator skill** - Progressive disclosure, writing guide, CLI reference
+```bash
+pnpx check-skills validate ./my-skill
+pnpx check-skills validate . --recursive
+pnpx check-skills validate . --recursive --no-quality
+```
 
 ## Typical Workflows
 
-### Recommended Setup (Skills)
+### Skill Authoring + Validation
+
+Use **skill-creator** for authoring guidance, then validate with **check-skills** before finishing.
 
 ```bash
-# Core: forced-eval hook + ecosystem skills
-npx mcpick plugins install toolkit-skills@claude-code-toolkit
-
-# Domain skills (optional, based on your stack)
-npx mcpick plugins install svelte-skills@svelte-skills-kit
-
-# Keep plugins up to date
-npx mcpick plugins update toolkit-skills
+pnpx check-skills validate ./my-skill
+pnpx check-skills validate . --recursive --llm --quiet
 ```
 
-toolkit-skills hook ensures skills from any plugin activate on relevant prompts.
+Use `--no-quality` when you only want `agentskills.io` spec compliance; omit it for authoring-quality warnings.
 
-### Add an MCP Server
+### Recall + Database Analysis
 
 ```bash
-npx mcpick add omnisearch -- npx -y mcp-omnisearch
+pnpx pirecall sync --json
+pnpx pirecall stats --json
 ```
+
+Then open `~/.pi/pirecall.db` with **mcp-sqlite-tools** for custom SQL across sessions, messages, tool calls, and FTS5 search.
+
+For Claude Code history, use `pnpx ccrecall sync --json` and query `~/.claude/ccrecall.db`.
 
 ### Research Mode
 
-```bash
-npx mcpick enable omnisearch
-# Now the agent has web search, GitHub search, AI answers
-```
+Use **mcp-omnisearch** for discovery and extraction, then apply the **research** skill to verify claims and cite sources.
 
 ### Data Analysis Mode
 
+Use **mcp-sqlite-tools** for structured data, recall databases, local app databases, or exported datasets.
+
+### Secret-Safe Work Mode
+
 ```bash
-npx mcpick enable sqlite-tools
-# Query databases, analyze CSVs, manage data
+pnpx nopeek audit
+pnpx nopeek load .env
+pnpx nopeek status
 ```
+
+Prefer referencing environment variable names in commands; avoid printing raw values.
 
 ### Minimal Context Mode
 
 ```bash
-npx mcpick disable omnisearch sqlite-tools
-# Just Claude Code core tools
+pnpx mcpick disable omnisearch sqlite-tools
 ```
 
-### Fix Stale Plugin Cache
-
-```bash
-npx mcpick cache status          # Check what's stale
-npx mcpick cache clear           # Clear and refresh
-npx mcpick cache clean-orphaned  # Remove old versions
-```
-
-### Save/Load Profiles
-
-```bash
-npx mcpick profile save research-mode
-npx mcpick profile load research-mode
-```
-
-### Analytics Review
-
-```bash
-bun x ccrecall sync  # Update database
-# Then query ~/.claude/ccrecall.db with mcp-sqlite-tools
-```
+Re-enable only the servers needed for the current task.
 
 ## Links
 
 | Tool                | GitHub                                           |
 | ------------------- | ------------------------------------------------ |
+| skills              | https://github.com/spences10/skills              |
+| check-skills        | https://github.com/spences10/check-skills        |
 | claude-code-toolkit | https://github.com/spences10/claude-code-toolkit |
 | svelte-skills-kit   | https://github.com/spences10/svelte-skills-kit   |
 | ccrecall            | https://github.com/spences10/ccrecall            |
