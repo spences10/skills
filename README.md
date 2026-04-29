@@ -64,8 +64,10 @@ No harness-specific marketplace files live here. Distribution wrappers sync from
 
 ## Wrapper Repos
 
-- The Svelte wrapper syncs the Svelte skill subset.
-- The tooling wrapper syncs workflow and tooling skill subsets.
+If you want Claude Code plugin marketplaces instead of vendor-agnostic skills:
+
+- [svelte-skills-kit](https://github.com/spences10/svelte-skills-kit) syncs the Svelte skill subset.
+- [claude-code-toolkit](https://github.com/spences10/claude-code-toolkit) syncs workflow and tooling skill subsets.
 
 ## Sync Reminder
 
