@@ -27,6 +27,7 @@ Remote files can live anywhere under `src` except `src/lib/server`.
 **Which function?**
 
 - Dynamic reads → `query()`
+- Realtime server streams → `query.live()`
 - Progressive forms → `form()`
 - Event-handler mutations → `command()`
 - Build-time/static reads → `prerender()`
@@ -71,14 +72,18 @@ Client:
 - Args/returns use `devalue`; avoid functions, class instances, symbols, circular refs, and `RegExp`.
 - Validate exposed inputs with Standard Schema (`valibot`, `zod`, `arktype`, etc.) or use `.unchecked`/`'unchecked'` deliberately.
 - `query.batch()` batches calls from the same macrotask to solve n+1 reads.
+- `query.live()` returns an async iterable; SSR uses the first yield, clients stay connected while rendered.
+- Live queries expose `connected` and `reconnect()`, but no `refresh()`; `.run()` returns `Promise<AsyncGenerator<T>>`.
+- Do not service-worker-cache live query responses; exclude `Cache-Control: no-store` streams.
 - `form().enhance()` `submit()` returns `true` when submission is valid/successful and `false` for validation failures.
 - `.updates()` is client-requested; server handlers must opt in with `requested(queryFn, limit)`.
 - `requested()` now yields `{ arg, query }`; call `query.refresh()`/`query.set(...)` on the bound instance.
 - `limit` is required for `requested()` to cap client-controlled refresh requests.
 - Inside command/form handlers, use `void query.refresh()`/`void query.set(value)`; SvelteKit awaits and serializes the updates.
+- For live queries, single-flight mutations can call `void live_query.reconnect()`.
 - Prefer `form()` over `command()` where progressive enhancement matters.
 - Use `prerender()` for data that changes at most once per deployment.
-- **Last verified:** SvelteKit 2.58.0, 2026-04-24
+- **Last verified:** SvelteKit remote functions docs, 2026-05-10
 
 ## Reference Files
 

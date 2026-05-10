@@ -1,6 +1,6 @@
 # SvelteKit Remote Functions
 
-Verified against SvelteKit 2.58.0 on 2026-04-24.
+Verified against the SvelteKit remote functions docs on 2026-05-10.
 
 Remote functions are exported from `.remote.ts`/`.remote.js` files and can be
 called anywhere in the app. They always execute on the server. On the client,
@@ -31,6 +31,7 @@ Remote files can live anywhere under `src` except `src/lib/server`.
 | Function      | Use for                                      | Notes |
 | ------------- | -------------------------------------------- | ----- |
 | `query()`     | Dynamic server reads                         | Cached while rendered; supports refresh and batching |
+| `query.live()` | Realtime server streams                     | Async iterable; SSR uses first yield; client stays connected while rendered |
 | `form()`      | Progressive form mutations                   | Works without JS; supports fields, validation, enhance |
 | `command()`   | Imperative/event-handler mutations           | Cannot be called during render |
 | `prerender()` | Static/build-time reads                      | For data that changes at most once per deployment |
@@ -94,6 +95,43 @@ export const getWeather = query.batch(v.string(), async (cityIds) => {
 	return (cityId) => byId.get(cityId);
 });
 ```
+
+## query.live()
+
+Use `query.live()` for realtime data streamed from the server. Its handler is typically an async generator that yields updated values.
+
+```ts
+import { query } from '$app/server';
+
+export const get_time = query.live(async function* () {
+	while (true) {
+		yield new Date();
+		await new Promise((resolve) => setTimeout(resolve, 1000));
+	}
+});
+```
+
+During SSR, `await get_time()` returns the first yielded value and closes the iterator. The initial value is serialized for hydration. In the browser, the stream stays connected while the query is actively used by a component; multiple instances share one connection. When no active uses remain, SvelteKit disconnects and stops server-side iteration.
+
+```svelte
+<script lang="ts">
+	import { get_time } from './time.remote';
+
+	const time = get_time();
+</script>
+
+<p>{await time}</p>
+<p>connected: {time.connected}</p>
+<button onclick={() => time.reconnect()}>Reconnect</button>
+```
+
+Notes:
+
+- Live query instances expose `connected` and `reconnect()`.
+- If the connection drops, SvelteKit passively reconnects with exponential backoff and actively reconnects when `navigator.onLine` changes back to `true`.
+- Live queries are self-updating and do not have `refresh()`.
+- Use `.run()` outside render for imperative access; it returns `Promise<AsyncGenerator<T>>`.
+- Do not cache live query responses in a service worker. Exclude responses whose `Cache-Control` header includes `no-store`, otherwise cloned streaming responses can keep running after the page closes.
 
 ## form()
 
@@ -356,6 +394,27 @@ export const updatePost = command(updateSchema, async ({ id, title }) => {
 
 Use `void` rather than `await`; SvelteKit awaits and serializes these updates for
 the response.
+
+### Reconnecting live queries
+
+Single-flight mutations can reconnect `query.live()` instances by calling `.reconnect()` in a `form()` or `command()` handler.
+
+```ts
+import { form, query } from '$app/server';
+import * as v from 'valibot';
+
+export const get_notifications = query.live(v.string(), async function* (user_id) {
+	while (true) {
+		yield await db.notifications(user_id);
+		await wait(1000);
+	}
+});
+
+export const mark_all_read = form(v.object({ user_id: v.string() }), async ({ user_id }) => {
+	await db.mark_all_notifications_read(user_id);
+	void get_notifications(user_id).reconnect();
+});
+```
 
 ## prerender()
 
