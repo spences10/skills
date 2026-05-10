@@ -1,7 +1,7 @@
 ---
 name: worktree-mastery
 # prettier-ignore
-description: "Git worktree patterns for parallel agent sessions. Run multiple coding-agent instances on the same repo without conflicts."
+description: "Git worktree patterns for parallel agent sessions. Use when running multiple coding-agent instances on the same repo, isolating risky work, or avoiding branch/stash conflicts."
 ---
 
 # Worktree Mastery

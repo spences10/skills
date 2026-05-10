@@ -6,7 +6,7 @@ description: "Find technical debt patterns in codebases. Use when asked to find 
 
 # Tech Debt Finder
 
-Identify duplicated code, inconsistent patterns, and refactoring opportunities.
+Identify duplicated code, inconsistent patterns, and refactoring opportunities. Prefer `pnpx fallow` when available for deeper static analysis; use this skill to interpret, prioritize, and turn findings into a practical refactor plan.
 
 ## When to Use
 
@@ -18,10 +18,10 @@ Identify duplicated code, inconsistent patterns, and refactoring opportunities.
 
 ## Detection Process
 
-1. **Scan** - Grep for common debt indicators
+1. **Tool scan** - Run `pnpx fallow` when available, then supplement with targeted grep/search
 2. **Cluster** - Group similar issues
 3. **Prioritize** - Rank by frequency × impact
-4. **Report** - Show findings with locations
+4. **Report** - Show findings with locations and suggested refactor seams
 
 ## Quick Patterns
 
@@ -31,7 +31,7 @@ Identify duplicated code, inconsistent patterns, and refactoring opportunities.
 | Similar-but-diff    | Fuzzy match on structure       |
 | Inconsistent naming | Regex for mixed conventions    |
 | Dead code           | Unreferenced exports/functions |
-| TODO/FIXME          | Grep for comment markers       |
+| Deferred-work notes | Grep for comment markers       |
 | Magic numbers       | Literals outside const/config  |
 | Long functions      | Line count > threshold         |
 | Deep nesting        | Indentation level analysis     |
@@ -50,7 +50,7 @@ Identify duplicated code, inconsistent patterns, and refactoring opportunities.
   Files: api.ts, service.ts, handler.ts
 
 ### Low Priority (track)
-- [TODO] 23 TODO comments, oldest: 2023-01-15
+- [DEFERRED] 23 deferred-work comments, oldest: 2023-01-15
 ```
 
 ## References

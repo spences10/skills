@@ -1,117 +1,102 @@
 ---
 name: tdd
 # prettier-ignore
-description: "Test-Driven Development workflow with red-green-refactor cycle. Use only when explicitly asked for TDD, not for general test writing."
+description: "Test-driven development with a red-green-refactor loop. Use when explicitly asked for TDD, red-green-refactor, test-first development, or integration-test-led feature work."
 ---
 
 # Test-Driven Development
 
-Drive implementation through tests using the red-green-refactor cycle.
+Drive implementation through tests using a red-green-refactor loop.
 
-> Adapted from [Matt Pocock's TDD skill](https://github.com/mattpocock/skills)
-
-## Trigger Patterns
-
-- "use TDD"
-- "TDD this feature"
-- "red-green-refactor"
-- "test-driven"
-- "write tests first"
-
-**Do not activate** for general "write tests for X" or "add test coverage" requests. This skill is specifically for the TDD workflow where tests lead implementation.
+> Adapted from [Matt Pocock's TDD skill](https://github.com/mattpocock/skills/blob/main/skills/engineering/tdd/SKILL.md).
 
 ## Philosophy
 
-Test behavior, not implementation. Every test should verify what the code *does* from the outside, not how it works inside. See [deep-modules.md](references/deep-modules.md) for the reasoning behind this.
+Test behavior through public interfaces, not implementation details. Good tests read like specifications for what the system does. They should survive internal refactors because they do not know about private functions, internal collaborators, or storage details.
 
-Good tests act as a contract: they define what the module promises to its callers. If you can swap the internals completely and your tests still pass, they're testing the right thing.
+Prefer integration-style tests that exercise real code paths. Mock only at system boundaries: network calls, databases, file systems, clocks, and third-party services. See [mocking.md](references/mocking.md).
+
+## When to Use
+
+Use this skill only when the user asks for:
+
+- TDD
+- red-green-refactor
+- test-first development
+- integration-test-led feature work
+- fixing a bug by first writing a failing regression test
+
+Do not activate for general “write tests” or “add coverage” requests.
 
 ## Workflow
 
 ### 1. Plan the Interface
 
-Before writing any code, decide the public surface area:
+Before writing code, identify the public surface area and behaviors:
 
-- What functions/methods/endpoints will exist?
-- What are the inputs and outputs?
-- What are the edge cases and error conditions?
+- What function, endpoint, component, command, or module will callers use?
+- What inputs and outputs matter?
+- What are the most important success, failure, and edge cases?
+- Which behaviors should be tested first?
 
-Design for the caller, not the implementation. See [interface-design.md](references/interface-design.md).
+Confirm the plan with the user when scope is ambiguous. Design for the caller, not the implementation. See [interface-design.md](references/interface-design.md).
 
-### 2. Write a Tracer Bullet Test
+### 2. Write One Tracer Bullet Test
 
-Start with one test that exercises the simplest meaningful path through the feature. This test should:
+Write one test for the simplest meaningful behavior. It must:
 
-- Call the public API as a real consumer would
-- Assert the most basic expected output
-- **Fail** — because the implementation doesn't exist yet
+- Use the public interface
+- Assert observable behavior
+- Fail for the expected reason
 
+```text
+RED: one behavior test exists and fails
 ```
-RED: test exists, code does not
-```
 
-Run the test. Confirm it fails for the right reason (missing function, wrong return value — not a syntax error).
+Do not write all tests first. That creates horizontal slices: tests for imagined behavior before the implementation teaches you anything.
 
 ### 3. Make It Green
 
-Write the **minimum** code to pass that one test. Do not write more than what the test demands. Hardcode return values if that's all it takes. The goal is a green test suite, not elegant code.
+Write the minimum implementation needed for that one test to pass.
 
-```
-GREEN: test passes with minimal implementation
-```
-
-### 4. Refactor Under Green
-
-With the test passing, clean up. Remove duplication, improve names, extract helpers — but only while tests stay green. See [refactoring.md](references/refactoring.md).
-
-```
-REFACTOR: improve code quality, tests still pass
+```text
+GREEN: the new test passes with minimal code
 ```
 
-### 5. Repeat
+Hardcoding is acceptable if it is genuinely the smallest step. Do not add speculative features for future tests.
 
-Add the next test. Pick the next simplest behavior that isn't covered. Follow the same cycle:
+### 4. Repeat Vertically
 
-1. Write a failing test
-2. Make it pass with minimal code
-3. Refactor while green
+Add the next behavior one cycle at a time:
 
-Build up complexity incrementally. Each cycle should take minutes, not hours.
+```text
+RED → GREEN: behavior 1
+RED → GREEN: behavior 2
+RED → GREEN: behavior 3
+```
 
-### 6. Handle Edge Cases
+Each new test should respond to what you learned from the previous cycle.
 
-After the core behavior works, add tests for:
+### 5. Refactor Under Green
 
-- Invalid inputs and error conditions
-- Boundary values
-- Empty/null/undefined cases
-- Concurrent access if relevant
+Only refactor when tests are green. Remove duplication, improve names, deepen modules, and simplify interfaces while keeping the suite passing. See [refactoring.md](references/refactoring.md).
 
-### 7. Final Refactor
+## Per-Cycle Checklist
 
-Once all behavior is covered, do a final pass:
-
-- Look for patterns across tests — consolidate setup with helpers
-- Check that test names clearly describe the behavior being verified
-- Ensure no test depends on another test's state
-- Review implementation for unnecessary complexity
-
-## When to Mock
-
-Use real dependencies when practical. Mock only at system boundaries — network calls, databases, file systems, clocks. See [mocking.md](references/mocking.md) for detailed guidance.
-
-## Test Quality
-
-Write tests that are readable, independent, and fast. See [tests.md](references/tests.md) for patterns on naming, structure, and assertion style.
+- Test describes behavior, not implementation
+- Test uses public interface only
+- Test would survive an internal refactor
+- Code is minimal for the current test
+- No speculative behavior was added
 
 ## Anti-patterns
 
-- Writing implementation before the test (defeats the purpose)
-- Writing multiple tests before making any pass (too much red)
-- Skipping the refactor step (accumulates mess)
+- Writing implementation before the test
+- Writing many tests before making one pass
 - Testing private methods or internal state
+- Mocking internal collaborators by default
 - Making tests pass by weakening assertions
-- Mocking everything instead of testing real behavior
+- Refactoring while red
 
 ## References
 
