@@ -2,20 +2,43 @@
 
 Canonical portable Agent Skills for compatible coding agents.
 
-This repo is the source of truth for portable skills that can be installed into compatible agent harnesses.
+This repo is the source of truth for human-readable skills that can be installed into compatible agent harnesses. Treat skills as high-trust agent instructions: review them before installing and pin versions when possible.
 
-## Install
+## Use these skills safely
+
+Prefer GitHub CLI `gh skill` on `gh` v2.90.0 or newer.
+
+```bash
+# Inspect a skill before installing
+gh skill preview spences10/skills svelte-runes
+
+# Install a reviewed skill
+gh skill install spences10/skills svelte-runes --agent claude-code
+
+# Safer: pin to a reviewed release tag or commit SHA
+gh skill install spences10/skills svelte-runes --agent claude-code --pin <tag-or-commit-sha>
+
+# Check installed skills for updates
+gh skill update --dry-run
+```
+
+Notes:
+
+- Prefer project-scoped installs for team-shared skills so changes are code-reviewed.
+- Review diffs before updating installed skills.
+- See [SECURITY.md](SECURITY.md) for the threat model and install guidance.
+
+### Legacy installer
+
+`npx skills add` may still work, but it is no longer the recommended install path here because agent skills are a supply-chain and prompt-injection surface.
+
+If you use it anyway, inspect the repo first and install only reviewed skills:
 
 ```bash
 # List available skills
 npx skills add spences10/skills --list
 
-# Install all skills for a specific agent
-npx skills add spences10/skills --agent pi --skill '*'
-npx skills add spences10/skills --agent opencode --skill '*'
-npx skills add spences10/skills --agent codex --skill '*'
-
-# Install one skill
+# Install one reviewed skill
 npx skills add spences10/skills --agent pi --skill svelte-runes
 ```
 
@@ -49,7 +72,7 @@ Before releasing Svelte skill updates:
 2. Compare `svelte-code-writer` and `svelte-core-bestpractices` guidance against this repo.
 3. Remove legacy Svelte patterns from local examples unless documenting a current compatibility boundary.
 4. Update `metadata.last_updated` in changed Svelte `SKILL.md` files.
-5. Run `npx skills add . --list` and confirm all skills are discovered.
+5. Run `gh skill publish --dry-run` and confirm skills validate before release.
 
 ## Workflow & Tooling Skills
 
