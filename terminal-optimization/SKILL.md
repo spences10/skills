@@ -2,13 +2,14 @@
 name: terminal-optimization
 # prettier-ignore
 description: "Terminal setup for Claude Code. Use for Ghostty config, statusline customization, voice dictation, tmux worktrees."
+compatibility: Requires Claude Code or compatible local tooling for the named workflows.
 ---
 
 # Terminal Optimization
 
 Configure terminal environment for effective Claude Code usage.
 
-## Ghostty Configuration
+**Ghostty Configuration**
 
 Ghostty works well with Claude Code. Key settings:
 
@@ -24,7 +25,7 @@ shell-integration = detect
 
 See [ghostty-config.md](references/ghostty-config.md) for full config.
 
-## Statusline
+**Statusline**
 
 Display context usage and git info in shell prompt. Useful for:
 
@@ -34,7 +35,7 @@ Display context usage and git info in shell prompt. Useful for:
 
 See [statusline-setup.md](references/statusline-setup.md) for starship/oh-my-zsh configs.
 
-## Voice Dictation
+**Voice Dictation**
 
 macOS: Press **fn key twice** to toggle dictation. Tips:
 
@@ -44,7 +45,7 @@ macOS: Press **fn key twice** to toggle dictation. Tips:
 
 See [voice-dictation.md](references/voice-dictation.md) for detailed tips.
 
-## Tab Naming
+**Tab Naming**
 
 Name terminal tabs by project/task:
 
@@ -57,7 +58,7 @@ echo -ne "\033]0;my-project\007"
 # iTerm2: Cmd+I
 ```
 
-## tmux for Worktrees
+**tmux for Worktrees**
 
 Use tmux sessions per git worktree:
 

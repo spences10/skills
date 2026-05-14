@@ -8,7 +8,7 @@ description: "Identify and remove AI-generated code patterns (slop). Use when as
 
 Identify and remove AI-generated verbosity patterns from code.
 
-## Trigger Patterns
+**Trigger Patterns**
 
 - "/deslop"
 - "clean up AI-generated code"
@@ -16,12 +16,12 @@ Identify and remove AI-generated verbosity patterns from code.
 - "too much AI verbosity"
 - "remove unnecessary comments"
 
-## What This Is NOT
+**What This Is NOT**
 
 - **Not techdebt-finder** — techdebt finds structural issues to refactor. Deslop finds AI verbosity to delete.
 - **Not simplify** — simplify reviews code for reuse/quality. Deslop targets specific AI generation patterns.
 
-## Scope
+**Scope**
 
 Target **recent or staged changes only**, not the whole codebase:
 
@@ -35,9 +35,9 @@ git diff HEAD~1 --name-only
 
 If the user doesn't specify scope, ask: staged changes or last N commits?
 
-## Workflow
+**Workflow**
 
-### 1. Determine Scope
+**1. Determine Scope**
 
 Identify which files to scan:
 
@@ -47,7 +47,7 @@ Identify which files to scan:
 
 Only scan code files. Skip markdown, docs, and config files.
 
-### 2. Scan for Slop Patterns
+**2. Scan for Slop Patterns**
 
 Read each file in scope. Apply the 10 detection patterns from [slop-patterns.md](references/slop-patterns.md).
 
@@ -58,7 +58,7 @@ For each match, record:
 - The offending code
 - Suggested removal/replacement
 
-### 3. Classify Findings
+**3. Classify Findings**
 
 Group by severity:
 
@@ -68,7 +68,7 @@ Group by severity:
 | Medium | Likely unnecessary, review | Over-engineered error handling, verbose docstrings |
 | Low | Possibly intentional, confirm | Extra validation, type annotations |
 
-### 4. Present Findings
+**4. Present Findings**
 
 Show each finding **one at a time** for user review. Follow the workflow in [review-workflow.md](references/review-workflow.md).
 
@@ -88,7 +88,7 @@ Suggested:
 Remove? [y/n/skip-all-of-type]
 ```
 
-### 5. Apply Approved Removals
+**5. Apply Approved Removals**
 
 Only apply changes the user explicitly approves. Never auto-fix.
 
@@ -102,7 +102,7 @@ After all findings reviewed, show summary:
 - Lines removed: 34
 ```
 
-## Anti-patterns
+**Anti-patterns**
 
 - Never auto-fix without user approval
 - Never scan entire codebase unprompted

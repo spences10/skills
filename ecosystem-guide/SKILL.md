@@ -1,6 +1,6 @@
 ---
 name: ecosystem-guide
-description: "Guide to Scott's agent workflow tools. Use when choosing between skills, skill validation, MCP servers, recall CLIs, search/database tooling, nopeek credential safety, or when connecting how these tools fit together across agent harnesses."
+description: "Guide to Scott's agent workflow tools. Use when choosing workflow tooling, validating skills, using recall/search/database tools, or handling secrets safely."
 ---
 
 # Agent Workflow Ecosystem Guide
@@ -24,7 +24,7 @@ A vendor-agnostic map of the tools Scott uses across coding agents. Skills usual
 
 ## Decision Tree
 
-### "I need context from previous sessions"
+**"I need context from previous sessions"**
 
 → **pirecall** for Pi sessions, **ccrecall** for Claude Code sessions. Use the CLI for quick recall/search, or query the SQLite database directly with **mcp-sqlite-tools** for flexible analysis.
 
@@ -34,15 +34,15 @@ pnpx pirecall search "mcp-sqlite-tools" --json
 pnpx ccrecall recall "last auth work" --json
 ```
 
-### "I need to search or verify something online"
+**"I need to search or verify something online"**
 
 → **mcp-omnisearch** for web search, AI answers, extraction, and source-backed research. Pair with the **research** skill when sources matter.
 
-### "I need to inspect or analyze a SQLite database"
+**"I need to inspect or analyze a SQLite database"**
 
 → **mcp-sqlite-tools**. Use it for `pirecall.db`, `ccrecall.db`, application SQLite files, CSV-style analysis, schema inspection, backups, and safe read/write separation.
 
-### "I need secrets or .env values available safely"
+**"I need secrets or .env values available safely"**
 
 → **nopeek**. Load secret values into the session without printing them into tool output or conversation context.
 
@@ -52,7 +52,7 @@ pnpx nopeek status
 pnpx nopeek audit
 ```
 
-### "I have too many MCPs eating context"
+**"I have too many MCPs eating context"**
 
 → **mcpick**. Enable only the MCP servers needed for the current project or workflow.
 
@@ -62,11 +62,11 @@ pnpx mcpick disable omnisearch
 pnpx mcpick profile save research-mode
 ```
 
-### "I'm building with Svelte/SvelteKit"
+**"I'm building with Svelte/SvelteKit"**
 
 → Use the Svelte skills in this repo: `svelte-runes`, `sveltekit-data-flow`, `sveltekit-structure`, `sveltekit-remote-functions`, `svelte-components`, and related skills.
 
-### "I want to create, edit, or validate a skill"
+**"I want to create, edit, or validate a skill"**
 
 → **skill-creator** for new skills; **check-skills** after creating or editing portable Agent Skills; **agent-md-maintenance** for persistent agent instruction files; **ecosystem-guide** when updating the map of tools.
 

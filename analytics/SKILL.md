@@ -2,6 +2,7 @@
 name: analytics
 # prettier-ignore
 description: "Query Claude Code session analytics from ccrecall database. Use when user asks about token usage, session history, or wants to analyze their Claude Code usage patterns."
+compatibility: Requires Claude Code or compatible local tooling for the named workflows.
 ---
 
 # Session Analytics
