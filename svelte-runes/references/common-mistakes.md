@@ -435,18 +435,17 @@ don't need deep reactivity, not because deep reactivity doesn't work.
 
 ---
 
-### 6. Mixing Svelte 4 and 5 Syntax ❌
+### 6. Mixing Legacy Syntax with Runes ❌
 
 **WRONG:**
 
 ```svelte
 <script>
 	let count = $state(0);
-	$: doubled = count * 2; // DON'T MIX reactive statements with runes!
+	$: doubled = count * 2; // Don't mix reactive statements with runes
 </script>
 
 <button on:click={() => count++}>
-	<!-- DON'T MIX on: with runes -->
 	{count}
 </button>
 ```
@@ -465,7 +464,7 @@ don't need deep reactivity, not because deep reactivity doesn't work.
 </button>
 ```
 
-**Why:** Svelte 5 requires consistent syntax. Pick one version.
+**Why:** Use runes-mode syntax consistently in new code.
 
 ---
 
@@ -559,13 +558,12 @@ $bindable().
 
 ---
 
-### 10. Using on: Event Handlers ❌
+### 10. Using Legacy Event Directives ❌
 
 **WRONG:**
 
 ```svelte
 <button on:click={handler}>Click</button>
-<!-- Svelte 4 syntax -->
 <button on:click|preventDefault={handler}>Click</button>
 ```
 
@@ -573,7 +571,6 @@ $bindable().
 
 ```svelte
 <button onclick={handler}>Click</button>
-<!-- Svelte 5 syntax -->
 <button
 	onclick={(e) => {
 		e.preventDefault();
@@ -582,8 +579,7 @@ $bindable().
 >
 ```
 
-**Why:** Svelte 5 uses standard DOM properties instead of `on:`
-directives.
+**Why:** Use standard DOM event properties instead of `on:` directives.
 
 ---
 

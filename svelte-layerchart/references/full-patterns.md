@@ -4,7 +4,7 @@
 
 ### Tooltip.Root children snippet
 
-**WRONG (Svelte 4):**
+**WRONG:**
 
 ```svelte
 <Tooltip.Root let:data>

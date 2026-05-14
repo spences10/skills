@@ -2,7 +2,7 @@
 name: svelte-runes
 # IMPORTANT: Keep description on ONE line for agent compatibility
 # prettier-ignore
-description: "Svelte runes guidance. Use for reactive state, props, effects, or migration. Covers $state, $derived, $effect, $props, $bindable. Prevents reactivity mistakes."
+description: "Svelte 5 runes guidance. Use for reactive state, props, effects, $state.raw, $derived.by, $props, and $bindable. Prevents reactivity mistakes."
 ---
 
 # Svelte Runes
@@ -13,8 +13,8 @@ description: "Svelte runes guidance. Use for reactive state, props, effects, or 
 Computed: `$derived()` | Side effect: `$effect()` | State: `$state()`
 
 **Key rules:** Runes are top-level only. $derived can be overridden
-(use `const` for read-only). Don't mix Svelte 4/5 syntax.
-Objects/arrays are deeply reactive by default.
+(use `const` for read-only). Objects/arrays are deeply reactive by
+default; use `$state.raw` for large data replaced wholesale.
 
 ## Example
 
@@ -37,8 +37,6 @@ Objects/arrays are deeply reactive by default.
 
 - [reactivity-patterns.md](references/reactivity-patterns.md) - When
   to use each rune
-- [migration-gotchas.md](references/migration-gotchas.md) - Svelte 4→5
-  translation
 - [component-api.md](references/component-api.md) - $props, $bindable
   patterns
 - [snippets-vs-slots.md](references/snippets-vs-slots.md) - New
@@ -55,7 +53,10 @@ Objects/arrays are deeply reactive by default.
 - `$derived` can be reassigned (5.25+) - use `const` for read-only
 - Use `createContext` over `setContext`/`getContext` for type safety
 - Use `$inspect.trace` to debug reactivity issues
-- **Last verified:** 2026-03-12
+- Prefer `$derived.by` for multi-line derivations
+- Avoid state updates inside `$effect`; effects are an escape hatch
+- Effects do not run on the server; don't wrap effect bodies in `if (browser)`
+- **Last verified:** 2026-05-14
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:

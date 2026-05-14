@@ -60,7 +60,7 @@ src/routes/
   failing route
 - Groups: `(name)` folders don't affect URL | Client-only: check
   `browser`
-- **Last verified:** 2025-01-11
+- **Last verified:** 2026-05-14
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:

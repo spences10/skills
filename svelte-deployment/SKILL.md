@@ -51,7 +51,7 @@ pnpm add -D @sveltejs/adapter-cloudflare
 - Cloudflare may strip `Transfer-Encoding: chunked` (breaks streaming)
 - Library authors: include `svelte` in keywords AND peerDependencies
 - Single-file bundle: `kit.output.bundleStrategy: 'single'`
-- **Last verified:** 2025-01-14
+- **Last verified:** 2026-05-14
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:

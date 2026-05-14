@@ -482,7 +482,8 @@ between users during SSR.
 
 ```ts
 // BAD - shared module state leaks between SSR requests
-export let theme = $state('dark');
+let theme = $state('dark');
+export const get_shared_theme = () => theme;
 
 // GOOD - context is scoped per component tree
 const [get_theme, set_theme] = createContext<string>('theme');

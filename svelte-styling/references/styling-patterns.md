@@ -2,11 +2,9 @@
 
 ## Scoped Styles
 
-All CSS in `<style>` is scoped to the component automatically. Svelte
-adds unique class selectors at compile time.
+All CSS in `<style>` is scoped to the component automatically. Svelte adds unique class selectors at compile time.
 
 ```svelte
-<!-- This h1 style only affects THIS component -->
 <h1>Hello</h1>
 
 <style>
@@ -16,10 +14,9 @@ adds unique class selectors at compile time.
 </style>
 ```
 
-## style: Directive
+## `style:` Directive
 
-Set individual CSS properties dynamically. Prefer over inline `style`
-strings.
+Set individual CSS properties dynamically. Prefer this over inline style strings.
 
 ```svelte
 <script>
@@ -27,10 +24,8 @@ strings.
 	let size = $state(16);
 </script>
 
-<!-- Individual properties -->
 <p style:color style:font-size="{size}px">Styled text</p>
 
-<!-- CSS custom properties -->
 <div style:--theme-color={color} style:--columns={3}>
 	{@render children()}
 </div>
@@ -43,49 +38,21 @@ strings.
 </style>
 ```
 
-### style: vs inline style
-
-```svelte
-<!-- Prefer style: directive -->
-<div style:color={textColor} style:font-size="{size}px">Good</div>
-
-<!-- Avoid inline style strings -->
-<div style="color: {textColor}; font-size: {size}px">Avoid</div>
-```
-
-**Why:** `style:` directives are type-checked, support shorthand, and
-merge cleanly with static styles.
-
-### Shorthand
-
-When variable name matches property name:
-
-```svelte
-<script>
-	let color = $state('red');
-</script>
-
-<p style:color>Shorthand</p>
-<!-- Equivalent to style:color={color} -->
-```
-
-### Important modifier
-
-```svelte
-<p style:color|important="red">Override</p>
-```
+**Why:** `style:` directives are type-checked, support shorthand, and merge cleanly with static styles.
 
 ## CSS Custom Properties for Child Components
 
-The preferred way to style child components from a parent.
-
-### Basic Pattern
+The preferred way to style child components from a parent is to pass CSS custom properties.
 
 ```svelte
 <!-- Parent.svelte -->
 <Card --bg="navy" --text="white" --radius="8px" />
 
 <!-- Card.svelte -->
+<script>
+	let { children } = $props();
+</script>
+
 <div class="card">
 	{@render children()}
 </div>
@@ -99,38 +66,9 @@ The preferred way to style child components from a parent.
 </style>
 ```
 
-### Theming Pattern
+## `:global` Selectors
 
-```svelte
-<!-- ThemeProvider.svelte -->
-<div
-	style:--primary={theme.primary}
-	style:--secondary={theme.secondary}
-	style:--font={theme.font}
->
-	{@render children()}
-</div>
-
-<!-- Any descendant can use var(--primary) etc. -->
-```
-
-### On Elements vs Components
-
-```svelte
-<!-- On elements: sets the property on the element -->
-<div style:--color="red">...</div>
-
-<!-- On components: wraps in <div style="--color: red"> -->
-<Component --color="red" />
-```
-
-## :global Selectors
-
-Override scoped styles. Use sparingly.
-
-### Scoped :global (Recommended)
-
-Limit `:global` to a parent selector scope:
+Use global selectors sparingly. Prefer scoped `:global` inside a parent selector.
 
 ```svelte
 <div class="wrapper">
@@ -139,7 +77,6 @@ Limit `:global` to a parent selector scope:
 
 <style>
 	.wrapper :global {
-		/* Only affects children of .wrapper */
 		h1 {
 			color: red;
 		}
@@ -150,125 +87,60 @@ Limit `:global` to a parent selector scope:
 </style>
 ```
 
-### Inline :global (Use Sparingly)
+Avoid broad global selectors unless you are intentionally writing app-level CSS.
 
-```svelte
-<style>
-	/* Affects ALL h1 elements on the page */
-	:global(h1) {
-		font-family: serif;
-	}
+## Conditional Classes
 
-	/* Target a specific global class within scoped context */
-	.card :global(.highlight) {
-		background: yellow;
-	}
-</style>
-```
-
-### :global Block
-
-```svelte
-<style>
-	:global {
-		/* Everything here is unscoped — like a regular stylesheet */
-		body {
-			margin: 0;
-		}
-	}
-</style>
-```
-
-**Warning:** Unscoped `:global` affects the entire page. Prefer scoped
-`:global` inside a parent selector.
-
-## class: Directive
-
-Conditionally apply classes:
+Prefer class arrays/objects in the `class` attribute for conditional classes.
 
 ```svelte
 <script>
+	import clsx from 'clsx';
+
 	let active = $state(false);
+	let enabled = $state(true);
 </script>
 
 <button
-	class:active
-	class:disabled={!enabled}
+	class={clsx('button', { active, disabled: !enabled })}
 	onclick={() => active = !active}
 >
 	Toggle
 </button>
-
-<style>
-	.active {
-		background: blue;
-		color: white;
-	}
-	.disabled {
-		opacity: 0.5;
-	}
-</style>
 ```
 
-### Shorthand
-
-When variable name matches class name:
+You can also use arrays/objects directly where your tooling supports Svelte's class value handling:
 
 ```svelte
-<div class:active>...</div>
-<!-- Equivalent to class:active={active} -->
+<div class={['card', { selected, disabled: !enabled }]}>...</div>
 ```
 
-## Conditional and Dynamic Styles
-
-### Pattern: Theme Switcher
+## Dynamic Styling Pattern
 
 ```svelte
 <script>
 	let dark = $state(false);
 </script>
 
-<div class:dark style:--bg={dark ? '#1a1a1a' : '#fff'}>
+<div class={['panel', { dark }]} style:--bg={dark ? '#1a1a1a' : '#fff'}>
 	{@render children()}
 </div>
 
 <style>
-	div {
+	.panel {
 		background: var(--bg);
 		transition: background 0.3s;
 	}
 </style>
 ```
 
-### Pattern: Responsive Grid
-
-```svelte
-<script>
-	let columns = $state(3);
-</script>
-
-<div style:--cols={columns}>
-	{#each items as item}
-		<div class="cell">{item}</div>
-	{/each}
-</div>
-
-<style>
-	div {
-		display: grid;
-		grid-template-columns: repeat(var(--cols, 3), 1fr);
-		gap: 1rem;
-	}
-</style>
-```
-
 ## Best Practices Summary
 
-1. **Scoped by default** — component `<style>` only affects that
-   component
-2. **Use `style:` directive** — not inline style strings for dynamic
-   values
-3. **CSS custom properties** — preferred way to style child components
-4. **Scoped `:global`** — always wrap in a parent selector when possible
-5. **`class:` directive** — for conditional class application
-6. **Avoid broad `:global`** — can cause style leaks across the app
+1. **Scoped by default** — component `<style>` only affects that component
+2. **Use `style:`** — not inline style strings for dynamic values
+3. **Use CSS custom properties** — preferred for styling child components
+4. **Scope `:global`** — wrap in a parent selector when possible
+5. **Use class arrays/objects** — preferred for conditional classes
+6. **Avoid broad `:global`** — it can leak styles across the app
+
+**Last verified:** 2026-05-14

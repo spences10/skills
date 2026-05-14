@@ -39,7 +39,7 @@ export const actions = {
 ```svelte
 <!-- +page.svelte -->
 <script>
-	export let form; // Contains fail() return value
+	let { form } = $props(); // Contains fail() return value
 </script>
 
 {#if form?.error}

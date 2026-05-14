@@ -60,7 +60,7 @@ export const actions = {
 - Server load → universal load via `data` param | ALWAYS
   `throw redirect()/error()`
 - No class instances/functions from server load (not serializable)
-- **Last verified:** 2025-01-11
+- **Last verified:** 2026-05-14
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:

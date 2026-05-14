@@ -119,7 +119,7 @@ export const load = async ({ data }) => {
 
 // +page.svelte
 <script>
-  export let data;  // { serverData, clientData }
+  let { data } = $props(); // { serverData, clientData }
 </script>
 ```
 

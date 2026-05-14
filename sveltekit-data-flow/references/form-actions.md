@@ -28,7 +28,7 @@ export const actions: Actions = {
 ```svelte
 <!-- +page.svelte -->
 <script>
-	export let form; // Contains return value from action
+	let { form } = $props(); // Contains return value from action
 </script>
 
 <form method="POST">
@@ -283,8 +283,7 @@ export const actions = {
 
 ```svelte
 <script>
-	export let data; // From load function
-	export let form; // From action return value
+	let { data, form } = $props(); // data from load, form from action
 </script>
 
 {#if form?.error}

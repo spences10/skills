@@ -50,7 +50,7 @@ export const load = async () => {
 ```svelte
 <!-- +page.svelte -->
 <script>
-	export let data;
+	let { data } = $props();
 	console.log(data.createdAt); // String, not Date
 	console.log(data.createdAt.getTime()); // ERROR - not a Date
 </script>
@@ -76,7 +76,7 @@ export const load = async () => {
 ```svelte
 <!-- +page.svelte -->
 <script>
-	export let data;
+	let { data } = $props();
 	const createdAt = new Date(data.user.createdAt); // Parse back to Date
 </script>
 ```
@@ -104,7 +104,7 @@ export const load = async () => {
 
 ```svelte
 <script>
-	export let data;
+	let { data } = $props();
 	console.log(data.user.getDisplayName()); // ERROR - method doesn't exist
 </script>
 ```
@@ -141,7 +141,7 @@ export const load = async () => {
 
 ```svelte
 <script>
-	export let data;
+	let { data } = $props();
 	console.log('email' in data); // false - key is missing!
 </script>
 ```

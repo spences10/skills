@@ -150,7 +150,7 @@ event handlers, $derived, or @attach.
 
 **Key points:**
 
-- Replaces `export let` from Svelte 4
+- Use for all component props
 - Supports defaults and rest props
 - Props are reactive automatically
 

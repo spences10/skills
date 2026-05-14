@@ -73,7 +73,8 @@ from JavaScript.
 - All `<style>` blocks are scoped to the component by default
 - Use `style:` directive, not inline style strings, for dynamic values
 - Prefer CSS custom properties over `:global` for child styling
-- **Last verified:** 2026-03-12
+- Prefer class arrays/objects in `class={...}` for conditional classes
+- **Last verified:** 2026-05-14
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:

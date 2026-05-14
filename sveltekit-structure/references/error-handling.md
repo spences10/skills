@@ -210,7 +210,7 @@ export const load = async ({ params }) => {
 ```svelte
 <!-- +page.svelte - Don't do this -->
 <script>
-	export let data;
+	let { data } = $props();
 
 	// If data.user is undefined, component just shows nothing
 	// No error boundary triggered

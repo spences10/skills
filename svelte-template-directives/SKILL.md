@@ -64,7 +64,7 @@ change, passes through components via spread, supports cleanup functions.
 - Attachments pass through wrapper components when you spread props
 - Always use keyed each blocks — never use index as key
 - Use `<svelte:window>`/`<svelte:document>` for global events, not `$effect`
-- **Last verified:** 2026-03-12
+- **Last verified:** 2026-05-14
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:

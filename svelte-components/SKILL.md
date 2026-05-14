@@ -39,6 +39,7 @@ export default {
 <!-- MyButton.svelte -->
 <svelte:options customElement="my-button" />
 
+<!-- Native <slot> is appropriate inside custom elements. -->
 <button><slot /></button>
 ```
 
@@ -56,7 +57,8 @@ export default {
 - Bits UI 1.0: flexible, unstyled, accessible components for Svelte
 - Form `defaultValue` attribute enables easy form resets
 - Use snippets to wrap rich HTML in custom select options
-- **Last verified:** 2025-01-14
+- Use snippets/`{@render}` for normal Svelte component content; native `<slot>` is for custom elements
+- **Last verified:** 2026-05-14
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:
