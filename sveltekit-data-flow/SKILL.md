@@ -2,7 +2,7 @@
 name: sveltekit-data-flow
 # IMPORTANT: Keep description on ONE line for agent compatibility
 # prettier-ignore
-description: "SvelteKit data flow guidance. Use for load functions, form actions, server/client data, and invalidation. Covers +page.server.ts vs +page.ts, serialization, fail(), redirect(), error(), invalidateAll()."
+description: "SvelteKit data flow guidance. Use when working with load functions, form actions, server/client boundaries, serialization, or invalidation."
 metadata:
   last_updated: "2026-05-14"
   verified_against: "Svelte 5 official docs and current local skill refresh"

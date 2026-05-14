@@ -1,7 +1,7 @@
 ---
 name: svelte-template-directives
 # prettier-ignore
-description: "Svelte template directives ({@attach}, {@html}, {@render}, {@const}, {@debug}). Use for DOM manipulation, third-party libs, tooltips, canvas, dynamic HTML. @attach replaces use: actions."
+description: "Svelte template directive guidance. Use when working with snippets, attachments, dynamic HTML, block constants, debugging tags, or global DOM events."
 metadata:
   last_updated: "2026-05-14"
   verified_against: "Svelte 5 official docs and current local skill refresh"

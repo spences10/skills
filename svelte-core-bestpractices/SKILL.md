@@ -1,7 +1,7 @@
 ---
 name: svelte-core-bestpractices
 # prettier-ignore
-description: "Svelte 5 core best practices. Default entrypoint for creating, editing, or reviewing .svelte, .svelte.ts, or .svelte.js files. Routes to deeper Svelte skills."
+description: "Svelte 5 core best practices. Use when creating, editing, or reviewing .svelte, .svelte.ts, or .svelte.js files. Routes to deeper Svelte skills."
 metadata:
   last_updated: "2026-05-14"
   verified_against: "Svelte 5 official docs and current local skill refresh"
