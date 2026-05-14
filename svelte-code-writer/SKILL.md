@@ -7,6 +7,8 @@ metadata:
   verified_against: "Svelte 5 official skills and current local skill refresh"
 ---
 
+<!-- Inspired by the official Svelte AI `svelte-code-writer` skill: https://svelte.dev/docs/ai/skills -->
+
 # Svelte Code Writer
 
 Use this workflow when creating, editing, reviewing, or debugging Svelte files.

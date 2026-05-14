@@ -7,6 +7,8 @@ metadata:
   verified_against: "Svelte 5 official docs and current local skill refresh"
 ---
 
+<!-- Inspired by the official Svelte AI `svelte-core-bestpractices` skill: https://svelte.dev/docs/ai/skills -->
+
 # Svelte Core Best Practices
 
 Use this as the baseline for any Svelte 5 component/module work, then load the focused skill for details.
