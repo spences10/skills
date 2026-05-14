@@ -29,6 +29,7 @@ No harness-specific marketplace files live here. Distribution wrappers sync from
 
 ## Svelte Skills
 
+- `svelte-core-bestpractices`
 - `svelte-components`
 - `svelte-deployment`
 - `svelte-layerchart`
