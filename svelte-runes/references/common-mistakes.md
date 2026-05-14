@@ -324,27 +324,27 @@ triggers your handler, which may cause loops or double-firing.
 ```ts
 // state.svelte.ts
 class DialogState {
-  dialog: HTMLDialogElement | null = null;
-  is_open = $state(false);
+	dialog: HTMLDialogElement | null = null;
+	is_open = $state(false);
 
-  register = (el: HTMLDialogElement) => {
-    this.dialog = el;
-    return () => {
-      this.dialog = null;
-    };
-  };
+	register = (el: HTMLDialogElement) => {
+		this.dialog = el;
+		return () => {
+			this.dialog = null;
+		};
+	};
 
-  open() {
-    if (!this.dialog?.open) {
-      this.is_open = true;
-      this.dialog?.showModal();
-    }
-  }
+	open() {
+		if (!this.dialog?.open) {
+			this.is_open = true;
+			this.dialog?.showModal();
+		}
+	}
 
-  close() {
-    this.is_open = false;
-    this.dialog?.close();
-  }
+	close() {
+		this.is_open = false;
+		this.dialog?.close();
+	}
 }
 ```
 
@@ -435,19 +435,15 @@ don't need deep reactivity, not because deep reactivity doesn't work.
 
 ---
 
-### 6. Mixing Legacy Syntax with Runes ❌
+### 6. Using Derived Logic Outside `$derived` ❌
 
 **WRONG:**
 
 ```svelte
 <script>
 	let count = $state(0);
-	$: doubled = count * 2; // Don't mix reactive statements with runes
+	let doubled = count * 2; // Won't update when count changes
 </script>
-
-<button on:click={() => count++}>
-	{count}
-</button>
 ```
 
 **RIGHT:**
@@ -455,16 +451,15 @@ don't need deep reactivity, not because deep reactivity doesn't work.
 ```svelte
 <script>
 	let count = $state(0);
-	let doubled = $derived(count * 2); // Use runes consistently
+	const doubled = $derived(count * 2);
 </script>
 
 <button onclick={() => count++}>
-	<!-- Use onclick -->
-	{count}
+	{count} / {doubled}
 </button>
 ```
 
-**Why:** Use runes-mode syntax consistently in new code.
+**Why:** Values derived from reactive state must use `$derived` or `$derived.by`.
 
 ---
 
@@ -558,28 +553,29 @@ $bindable().
 
 ---
 
-### 10. Using Legacy Event Directives ❌
+### 10. Putting Event Logic in `$effect` ❌
 
 **WRONG:**
 
 ```svelte
-<button on:click={handler}>Click</button>
-<button on:click|preventDefault={handler}>Click</button>
+<script>
+	let clicked = $state(false);
+
+	$effect(() => {
+		if (clicked) submit();
+	});
+</script>
+
+<button onclick={() => clicked = true}>Submit</button>
 ```
 
 **RIGHT:**
 
 ```svelte
-<button onclick={handler}>Click</button>
-<button
-	onclick={(e) => {
-		e.preventDefault();
-		handler(e);
-	}}>Click</button
->
+<button onclick={submit}>Submit</button>
 ```
 
-**Why:** Use standard DOM event properties instead of `on:` directives.
+**Why:** User-triggered work belongs in event handlers. Reserve `$effect` for synchronization with external systems.
 
 ---
 
@@ -789,7 +785,7 @@ proxies.
 7. ✅ Wrap reactive variables with `$state()`
 8. ✅ Use `$bindable()` for two-way binding
 9. ✅ Use `{@render children()}` not `{children}`
-10. ✅ Use `onclick` not `on:click`
+10. ✅ Put user-triggered work directly in event handlers
 11. ✅ Remember: `$effect` doesn't run during SSR
 
 ## Debugging: $inspect.trace
@@ -816,6 +812,7 @@ which one triggered an update.
 ```
 
 **When to use:**
+
 - Something is not updating when it should
 - An effect or derived is running more often than expected
 - You need to identify which dependency triggered a re-run

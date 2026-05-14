@@ -18,7 +18,7 @@ Remote functions are **experimental** in SvelteKit 2.58. Enable them in
 ```js
 export default {
 	kit: { experimental: { remoteFunctions: true } },
-	compilerOptions: { experimental: { async: true } } // only for await in components
+	compilerOptions: { experimental: { async: true } }, // only for await in components
 };
 ```
 
@@ -39,20 +39,26 @@ Remote files can live anywhere under `src` except `src/lib/server`.
 
 ```ts
 // posts.remote.ts
-import { command, query, requested } from '$app/server';
-import * as v from 'valibot';
+import { command, query, requested } from "$app/server";
+import * as v from "valibot";
 
-export const getPosts = query(v.object({ tag: v.optional(v.string()) }), async (filter) => {
-	return db.posts.find(filter);
-});
+export const getPosts = query(
+	v.object({ tag: v.optional(v.string()) }),
+	async (filter) => {
+		return db.posts.find(filter);
+	},
+);
 
-export const createPost = command(v.object({ title: v.string() }), async (data) => {
-	await db.posts.create(data);
+export const createPost = command(
+	v.object({ title: v.string() }),
+	async (data) => {
+		await db.posts.create(data);
 
-	for (const { query } of requested(getPosts, 5)) {
-		void query.refresh();
-	}
-});
+		for (const { query } of requested(getPosts, 5)) {
+			void query.refresh();
+		}
+	},
+);
 ```
 
 Client:
@@ -86,7 +92,7 @@ Client:
 - For live queries, single-flight mutations can call `void live_query.reconnect()`.
 - Prefer `form()` over `command()` where progressive enhancement matters.
 - Use `prerender()` for data that changes at most once per deployment.
-- **Last verified:** SvelteKit remote functions docs, 2026-05-10
+- **Last verified:** 2026-05-14
 
 ## Reference Files
 

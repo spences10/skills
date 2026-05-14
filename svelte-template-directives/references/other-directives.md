@@ -92,7 +92,7 @@ Declares local constants within template blocks. Useful in `{#each}` and
 	{@const fullName = `${item.firstName} ${item.lastName}`}
 	{@const isLongName = fullName.length > 20}
 
-	<div class:truncate={isLongName}>
+	<div class={[{ truncate: isLongName }]}>
 		{fullName}
 	</div>
 {/each}

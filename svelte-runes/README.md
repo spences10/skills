@@ -1,10 +1,9 @@
 # Svelte5 Runes
 
 Expert guidance on Svelte 5 runes (`$state`, `$derived`, `$effect`, `$props`, `$bindable`). Use when working with
-Svelte 5 reactive state, component props, side effects, or migrating
-from Svelte 4. Prevents common mistakes like mixing reactive
-statements with runes, misusing `$effect` for derived state, and shallow
-reactivity issues.
+Svelte 5 reactive state, component props, and side effects. Prevents
+common mistakes like using plain derived variables, misusing `$effect`
+for derived state, and shallow reactivity assumptions.
 
 ## Structure
 

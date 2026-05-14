@@ -7,12 +7,12 @@
 
 <script lang="ts">
 	// Demo state
-	let name = $state('');
-	let email = $state('');
+	let name = $state("");
+	let email = $state("");
 	let isEnabled = $state(false);
 	let count = $state(0);
 
-	let formValid = $derived(name.length > 0 && email.includes('@'));
+	let formValid = $derived(name.length > 0 && email.includes("@"));
 </script>
 
 <div class="demo">
@@ -46,8 +46,8 @@
 			<button onclick={() => count++}>Count: {count}</button>
 		</div>
 
-		<p class:valid={formValid} class:invalid={!formValid}>
-			Form is {formValid ? 'valid' : 'invalid'}
+		<p class={{ valid: formValid, invalid: !formValid }}>
+			Form is {formValid ? "valid" : "invalid"}
 		</p>
 	</div>
 
@@ -145,8 +145,8 @@
 		font-weight: 500;
 	}
 
-	input[type='text'],
-	input[type='email'] {
+	input[type="text"],
+	input[type="email"] {
 		padding: 0.5rem;
 		font-size: 1rem;
 		border: 1px solid #ccc;
@@ -154,7 +154,7 @@
 		flex: 1;
 	}
 
-	input[type='checkbox'] {
+	input[type="checkbox"] {
 		width: 1.25rem;
 		height: 1.25rem;
 	}
@@ -218,7 +218,7 @@
 	}
 
 	code {
-		font-family: 'Courier New', monospace;
+		font-family: "Courier New", monospace;
 		font-size: 0.9rem;
 	}
 

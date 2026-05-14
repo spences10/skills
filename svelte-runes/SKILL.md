@@ -52,7 +52,7 @@ default; use `$state.raw` for large data replaced wholesale.
 
 ## Notes
 
-- Use `onclick` not `on:click`, `{@render children()}` in layouts
+- Use event properties like `onclick`, and `{@render children()}` in layouts
 - `$derived` can be reassigned (5.25+) - use `const` for read-only
 - Use `createContext` over `setContext`/`getContext` for type safety
 - Use `$inspect.trace` to debug reactivity issues

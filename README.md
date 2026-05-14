@@ -29,6 +29,7 @@ No harness-specific marketplace files live here. Distribution wrappers sync from
 
 ## Svelte Skills
 
+- `svelte-code-writer`
 - `svelte-core-bestpractices`
 - `svelte-components`
 - `svelte-deployment`
@@ -39,6 +40,16 @@ No harness-specific marketplace files live here. Distribution wrappers sync from
 - `sveltekit-data-flow`
 - `sveltekit-remote-functions`
 - `sveltekit-structure`
+
+## Svelte Skill Refresh Workflow
+
+Before releasing Svelte skill updates:
+
+1. Review the official Svelte AI skills page: <https://svelte.dev/docs/ai/skills>
+2. Compare `svelte-code-writer` and `svelte-core-bestpractices` guidance against this repo.
+3. Remove legacy Svelte patterns from local examples unless documenting a current compatibility boundary.
+4. Update `metadata.last_updated` in changed Svelte `SKILL.md` files.
+5. Run `npx skills add . --list` and confirm all skills are discovered.
 
 ## Workflow & Tooling Skills
 
