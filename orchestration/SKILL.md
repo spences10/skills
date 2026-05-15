@@ -1,64 +1,58 @@
 ---
 name: orchestration
 # prettier-ignore
-description: "Multi-agent orchestration patterns for Claude Code team mode. Use when coordinating teammates, decomposing complex tasks, or managing shared task lists."
+description: "Coordinate parallel agent work. Use when decomposing complex tasks, running review/implementation in parallel, managing task lists, or isolating work with branches/worktrees."
 metadata:
-  last_updated: "2026-05-14"
+  last_updated: "2026-05-15"
   verified_against: "current local skill refresh"
-compatibility: Requires Claude Code or compatible local tooling for the named workflows.
 ---
 
 # Orchestration
 
-Patterns for coordinating multi-agent work in Claude Code using team mode.
+Coordinate multi-agent or multi-session coding work without file conflicts or duplicated effort. Stay harness-agnostic: use built-in team/subagent features when available, or manual git worktrees when not.
 
-Source: [code.claude.com/docs/en/agent-teams](https://code.claude.com/docs/en/agent-teams)
+## When to Use
 
-## Quick Start
+- Complex work that can split by domain, file area, or risk level
+- Parallel review, implementation, test, or documentation passes
+- Background research while the main session implements
+- Risky changes that should be isolated in branches or worktrees
 
-Tell the lead what team you want in natural language:
+## Core Rules
 
-```text
-Create an agent team to refactor the auth module. Spawn three teammates:
-- One focused on extracting shared utilities
-- One migrating tests to the new structure
-- One updating documentation
-Use Sonnet for each teammate.
+- Assign clear ownership: one agent/session owns each file or subsystem.
+- Prefer 3-5 parallel workers; more usually adds coordination overhead.
+- Create a shared task list with dependencies and acceptance criteria.
+- Require concise handoff notes: files touched, decisions made, validation run, blockers.
+- Synthesize results in the lead session before merging or committing.
+
+## Worktree Pattern
+
+Use git worktrees when parallel sessions may mutate files:
+
+```bash
+git worktree add ../project-review main
+git worktree add ../project-refactor main
+git worktree list
 ```
 
-The lead creates the team, spawns teammates, distributes work via a shared task list, and synthesizes results.
+Each session works in its own directory, then syncs through commits, branches, or patches.
 
-## How It Works
+## Decomposition Patterns
 
-| Component     | Role                                                            |
-| ------------- | --------------------------------------------------------------- |
-| **Team lead** | Your main session — creates team, spawns teammates, coordinates |
-| **Teammates** | Separate Claude Code instances working on assigned tasks        |
-| **Task list** | Shared work items teammates claim and complete                  |
-| **Messaging** | `SendMessage` for DMs, broadcasts, and shutdown requests        |
-
-Teammates are persistent — they go idle between turns and can be woken up with messages. They can message each other directly.
-
-## Key Behaviours
-
-- **Lead spawns teammates** based on your prompt — you describe the team, the lead creates it
-- **Teammates self-claim tasks** from the shared list after finishing work
-- **No nested teams** — teammates cannot spawn their own teams or teammates
-- **File partitioning** — never assign the same file to multiple teammates
-- **3-5 teammates** is the sweet spot for most workflows
-- **5-6 tasks per teammate** keeps everyone productive
-
-## When Teams vs Subagents
-
-|                   | Subagents                          | Teams                                      |
-| ----------------- | ---------------------------------- | ------------------------------------------ |
-| **Communication** | Report back to caller only         | Message each other directly                |
-| **Coordination**  | Main agent manages all work        | Shared task list, self-coordination        |
-| **Best for**      | Focused tasks, only result matters | Complex work needing collaboration         |
-| **Token cost**    | Lower                              | Higher (each teammate = separate instance) |
+| Pattern              | Use when                                |
+| -------------------- | --------------------------------------- |
+| Fan-out              | Same operation across independent areas |
+| Pipeline             | Research → implement → test → docs      |
+| Reviewer/implementer | One session changes, another critiques  |
+| Speculative branches | Trying competing approaches safely      |
+| Background monitor   | Long-running CI, logs, or investigation |
 
 ## References
 
-- [patterns.md](references/patterns.md) - 6 orchestration patterns (fan-out, pipeline, map-reduce, speculative, background, task-graph)
-- [domains.md](references/domains.md) - 8 domain-specific decomposition guides
-- [task-management.md](references/task-management.md) - Task dependencies, graph walking, file partitioning
+- [patterns.md](references/patterns.md) - Orchestration patterns
+- [domains.md](references/domains.md) - Domain-specific decomposition
+- [task-management.md](references/task-management.md) - Dependencies, task graphs, file partitioning
+- [worktree-commands.md](references/worktree-commands.md) - Git worktree command reference
+- [session-strategies.md](references/session-strategies.md) - Multi-session patterns
+- [cleanup.md](references/cleanup.md) - Worktree removal and maintenance

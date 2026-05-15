@@ -76,15 +76,12 @@ Before releasing Svelte skill updates:
 
 ## Workflow & Tooling Skills
 
-- `advanced-prompting`
 - `analytics`
 - `asshole`
 - `ci-debug-workflow`
-- `agent-md-maintenance`
 - `deslop`
 - `ecosystem-guide`
 - `improve-codebase-architecture`
-- `mcp-setup`
 - `nopeek`
 - `orchestration`
 - `plugin-dev`
@@ -94,8 +91,6 @@ Before releasing Svelte skill updates:
 - `structured-rpi`
 - `tdd`
 - `techdebt-finder`
-- `terminal-optimization`
-- `worktree-mastery`
 
 ## Wrapper Repos
 

@@ -1,119 +1,52 @@
 ---
 name: deslop
 # prettier-ignore
-description: "Identify and remove AI-generated code patterns (slop). Use when asked to clean up AI-generated code, remove unnecessary comments, or deslop."
+description: "Clean AI-generated code noise. Use when reviewing diffs, removing unnecessary comments, tightening verbose code, or desloping recent changes."
 metadata:
-  last_updated: "2026-05-14"
+  last_updated: "2026-05-15"
   verified_against: "current local skill refresh"
 ---
 
 # Deslop
 
-Identify and remove AI-generated verbosity patterns from code.
+Remove AI-generated verbosity and low-value code noise from recent changes.
 
-**Trigger Patterns**
+## Scope
 
-- "/deslop"
-- "clean up AI-generated code"
-- "remove slop"
-- "too much AI verbosity"
-- "remove unnecessary comments"
-
-**What This Is NOT**
-
-- **Not techdebt-finder** — techdebt finds structural issues to refactor. Deslop finds AI verbosity to delete.
-- **Not simplify** — simplify reviews code for reuse/quality. Deslop targets specific AI generation patterns.
-
-**Scope**
-
-Target **recent or staged changes only**, not the whole codebase:
+Default to the smallest relevant diff:
 
 ```bash
-# Check staged changes
 git diff --cached --name-only
-
-# Check recent commits (default: last commit)
 git diff HEAD~1 --name-only
 ```
 
-If the user doesn't specify scope, ask: staged changes or last N commits?
+If scope is unclear, ask whether to review staged changes, the last commit, or specific files. Skip markdown/docs unless the user asks.
 
-**Workflow**
+## Fast Workflow
 
-**1. Determine Scope**
+1. **Scan the diff** for patterns from [slop-patterns.md](references/slop-patterns.md).
+2. **Auto-remove obvious noise** when it is mechanically safe: redundant comments, filler summaries, dead wrappers, duplicate branches.
+3. **Ask before risky edits**: behavior changes, public API changes, validation removal, or unclear comments.
+4. **Verify** with a targeted test/typecheck/lint when code changed.
+5. **Report briefly**: files touched, noise removed, risky items left alone.
 
-Identify which files to scan:
+## What to Remove
 
-- Staged files (`git diff --cached`)
-- Recent commits (`git diff HEAD~N`)
-- Specific files if user provides them
+- Comments that restate code
+- Filler docstrings and section banners
+- Over-explained temporary variables
+- Defensive branches that cannot occur
+- Boilerplate summaries added by generated code
 
-Only scan code files. Skip markdown, docs, and config files.
+## What to Keep
 
-**2. Scan for Slop Patterns**
-
-Read each file in scope. Apply the 10 detection patterns from [slop-patterns.md](references/slop-patterns.md).
-
-For each match, record:
-
-- File and line number
-- Pattern type
-- The offending code
-- Suggested removal/replacement
-
-**3. Classify Findings**
-
-Group by severity:
-
-| Severity | Description | Examples |
-| -------- | ----------- | ------- |
-| High | Pure noise, safe to remove | Obvious comments, filler summaries |
-| Medium | Likely unnecessary, review | Over-engineered error handling, verbose docstrings |
-| Low | Possibly intentional, confirm | Extra validation, type annotations |
-
-**4. Present Findings**
-
-Show each finding **one at a time** for user review. Follow the workflow in [review-workflow.md](references/review-workflow.md).
-
-Format:
-
-```
-## Finding 1/N — [pattern-type] (severity)
-File: src/utils.ts:23-25
-
-Current:
-  // This function adds two numbers together and returns the result
-  function add(a: number, b: number): number {
-
-Suggested:
-  function add(a: number, b: number): number {
-
-Remove? [y/n/skip-all-of-type]
-```
-
-**5. Apply Approved Removals**
-
-Only apply changes the user explicitly approves. Never auto-fix.
-
-After all findings reviewed, show summary:
-
-```
-## Deslop Summary
-- Reviewed: 15 findings
-- Removed: 10
-- Skipped: 5
-- Lines removed: 34
-```
-
-**Anti-patterns**
-
-- Never auto-fix without user approval
-- Never scan entire codebase unprompted
-- Never remove comments that explain non-obvious logic
-- Never touch markdown or documentation files
-- Never remove license headers or legal comments
+- Comments explaining non-obvious business logic
+- Legal/license comments
+- Public API documentation
+- Compatibility notes
+- Safety checks with real failure modes
 
 ## References
 
-- [slop-patterns.md](references/slop-patterns.md) - The 10 AI slop detection patterns
-- [review-workflow.md](references/review-workflow.md) - Interactive review workflow
+- [slop-patterns.md](references/slop-patterns.md) - AI slop detection patterns
+- [review-workflow.md](references/review-workflow.md) - Interactive review for risky removals
