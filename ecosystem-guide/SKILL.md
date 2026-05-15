@@ -1,6 +1,6 @@
 ---
 name: ecosystem-guide
-description: "Route agent workflow tooling. Use when choosing recall, search, SQLite, MCP, secret-safety, terminal setup, or skill validation tools."
+description: "Guide Scott's LLM tooling ecosystem. Use when choosing recall, search, SQLite, MCP, secret-safety, or skill validation tools."
 metadata:
   last_updated: "2026-05-15"
   verified_against: "current local skill refresh"
@@ -20,7 +20,6 @@ Use this as a router for Scott's agent workflow tools. Keep it vendor-neutral: p
 | Secret-safe `.env` or API key access | `nopeek`                                      |
 | Too many MCP servers in context      | `mcpick`                                      |
 | Skill creation or validation         | `skill-creator` + `check-skills`              |
-| Terminal/statusline/voice setup      | terminal references below                     |
 
 ## Common Commands
 
@@ -53,9 +52,3 @@ pnpx check-skills validate ./my-skill
 pnpx check-skills validate . --recursive --llm --quiet
 pnpx check-skills validate . --recursive --no-quality
 ```
-
-## References
-
-- [ghostty-config.md](references/ghostty-config.md) - Terminal configuration
-- [statusline-setup.md](references/statusline-setup.md) - Prompt/statusline setup
-- [voice-dictation.md](references/voice-dictation.md) - Voice input tips
