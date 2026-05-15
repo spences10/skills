@@ -8,18 +8,56 @@ metadata:
 
 # Agent Workflow Ecosystem Guide
 
-Use this as a router for Scott's agent workflow tools. Keep it vendor-neutral: prefer capabilities first, then mention harness-specific commands only when needed.
+Use this as the index for Scott's LLM tools and skills. If another skill mentions one of these tools or repo skills, keep it listed here so agents can understand how the ecosystem fits together.
 
-## Quick Routing
+## Tool Index
 
-| Need                                 | Use                                           |
-| ------------------------------------ | --------------------------------------------- |
-| Previous session context             | `pirecall` for Pi, `ccrecall` for Claude Code |
-| Web/docs/source verification         | `mcp-omnisearch` + `research` skill           |
-| SQLite inspection or analysis        | `mcp-sqlite-tools`                            |
-| Secret-safe `.env` or API key access | `nopeek`                                      |
-| Too many MCP servers in context      | `mcpick`                                      |
-| Skill creation or validation         | `skill-creator` + `check-skills`              |
+| Tool               | Use for                                                                |
+| ------------------ | ---------------------------------------------------------------------- |
+| `skills` repo      | Canonical portable Agent Skills source of truth                        |
+| `check-skills`     | Validating/linting portable Agent Skills                               |
+| `pirecall`         | Recalling and querying Pi sessions in `~/.pi/pirecall.db`              |
+| `ccrecall`         | Recalling and querying Claude Code sessions in `~/.claude/ccrecall.db` |
+| `nopeek`           | Loading secrets without exposing values to model context               |
+| `mcp-omnisearch`   | Web search, AI answers, and content extraction                         |
+| `mcp-sqlite-tools` | Safe SQLite inspection, querying, schema work, and backups             |
+| `mcpick`           | Enabling/disabling MCP servers and profiles per task                   |
+| `npmx.dev`         | Looking up npm package docs/types during research                      |
+
+## Skill Index
+
+| Need                                               | Skill                           |
+| -------------------------------------------------- | ------------------------------- |
+| Querying session/token/tool analytics              | `analytics`                     |
+| Reporting failed tests/builds honestly             | `asshole`                       |
+| Debugging CI, containers, or reproducible failures | `ci-debug-workflow`             |
+| Cleaning AI-generated code noise                   | `deslop`                        |
+| Choosing tools across this ecosystem               | `ecosystem-guide`               |
+| Finding architecture and module-boundary refactors | `improve-codebase-architecture` |
+| Handling secrets safely                            | `nopeek`                        |
+| Coordinating parallel agents/sessions/worktrees    | `orchestration`                 |
+| Developing Claude Code plugins                     | `plugin-dev`                    |
+| Capturing reusable lessons or instruction updates  | `reflect`                       |
+| Verifying sources before presenting claims         | `research`                      |
+| Creating or improving skills                       | `skill-creator`                 |
+| Planning risky or ambiguous work                   | `structured-rpi`                |
+| Running explicit test-driven development           | `tdd`                           |
+| Finding duplicated/inconsistent tech debt          | `techdebt-finder`               |
+
+## Svelte Skill Router
+
+| Need                              | Skill                                               |
+| --------------------------------- | --------------------------------------------------- |
+| Baseline Svelte guidance          | `svelte-core-bestpractices` or `svelte-code-writer` |
+| Runes/reactivity/props            | `svelte-runes`                                      |
+| Snippets, attachments, directives | `svelte-template-directives`                        |
+| Scoped CSS and styling            | `svelte-styling`                                    |
+| Components, forms, UI libraries   | `svelte-components`                                 |
+| SvelteKit data/load/actions       | `sveltekit-data-flow`                               |
+| SvelteKit routing/layout/errors   | `sveltekit-structure`                               |
+| SvelteKit remote functions        | `sveltekit-remote-functions`                        |
+| Deployment/build/library/PWA      | `svelte-deployment`                                 |
+| LayerChart chart components       | `svelte-layerchart`                                 |
 
 ## Common Commands
 
@@ -39,9 +77,7 @@ Install common MCP tools when a harness supports MCP servers:
 npm i -g mcp-omnisearch mcp-sqlite-tools mcpick
 ```
 
-- **mcp-omnisearch**: search, AI answers, content extraction
-- **mcp-sqlite-tools**: safe SQLite schema/query/write workflows
-- **mcpick**: enable/disable MCP servers per task to reduce context noise
+Use `mcp-omnisearch` for research, `mcp-sqlite-tools` for local databases, and `mcpick` for keeping MCP context lean.
 
 ## Skill Authoring + Validation
 
