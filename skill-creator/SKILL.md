@@ -9,7 +9,7 @@ metadata:
 
 # Skill Creator
 
-Create effective Agent Skills using progressive disclosure.
+Create effective Agent Skills using progressive disclosure. For choosing validation and distribution tooling around skills, use `ecosystem-guide`.
 
 ## When to Create a Skill
 

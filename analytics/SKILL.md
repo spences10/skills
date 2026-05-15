@@ -10,7 +10,9 @@ compatibility: Requires Claude Code or compatible local tooling for the named wo
 
 # Session Analytics
 
-Query your Claude Code usage data from the ccrecall SQLite database.
+Query session usage data from recall SQLite databases. For choosing between recall, SQLite, and related tooling, use `ecosystem-guide`.
+
+This skill currently focuses on Claude Code usage data from the ccrecall SQLite database.
 
 ## Prerequisites
 

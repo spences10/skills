@@ -9,6 +9,8 @@ metadata:
 
 # Verified Research
 
+For choosing search, extraction, npm package, or wider tooling workflows, use `ecosystem-guide`.
+
 ## Quick Start
 
 1. Fetch actual source content (don't trust snippets)

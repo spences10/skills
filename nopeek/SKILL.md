@@ -8,7 +8,7 @@ metadata:
 
 # nopeek — Secret Safety for Agent Sessions
 
-Secure proxy between coding agents and your secrets. The agent knows key names, never key values.
+Secure proxy between coding agents and your secrets. The agent knows key names, never key values. For choosing secret-safety tooling alongside recall, MCP, and database tools, use `ecosystem-guide`.
 
 ## Why
 

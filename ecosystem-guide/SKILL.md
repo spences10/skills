@@ -1,6 +1,6 @@
 ---
 name: ecosystem-guide
-description: "Guide Scott's LLM tooling ecosystem. Use when choosing recall, search, SQLite, MCP, secret-safety, or skill validation tools."
+description: "Navigating LLM tooling workflows. Use when choosing recall, search, SQLite, MCP, secret-safety, or skill validation tools."
 metadata:
   last_updated: "2026-05-15"
   verified_against: "current local skill refresh"
@@ -8,7 +8,7 @@ metadata:
 
 # Agent Workflow Ecosystem Guide
 
-Use this as the index for Scott's LLM tools and skills. If another skill mentions one of these tools or repo skills, keep it listed here so agents can understand how the ecosystem fits together.
+Use this as the index for the LLM tooling system in this repo. If another skill mentions one of these tools or repo skills, keep it listed here so agents can understand how the ecosystem fits together.
 
 ## Tool Index
 
