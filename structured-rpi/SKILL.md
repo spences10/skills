@@ -2,6 +2,9 @@
 name: structured-rpi
 # prettier-ignore
 description: "Enhanced Research-Plan-Implement workflow with structured phase gates. Use when tackling complex tasks that benefit from a phased approach with user checkpoints."
+metadata:
+  last_updated: "2026-04-24"
+  verified_against: "current local skill refresh"
 ---
 
 # Structured RPI (Research-Plan-Implement)

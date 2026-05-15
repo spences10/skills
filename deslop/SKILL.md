@@ -2,6 +2,9 @@
 name: deslop
 # prettier-ignore
 description: "Identify and remove AI-generated code patterns (slop). Use when asked to clean up AI-generated code, remove unnecessary comments, or deslop."
+metadata:
+  last_updated: "2026-05-14"
+  verified_against: "current local skill refresh"
 ---
 
 # Deslop

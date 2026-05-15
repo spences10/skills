@@ -1,6 +1,9 @@
 ---
 name: mcp-setup
 description: "Setup guide for essential MCP servers. Use when configuring MCP servers or when user asks about search, SQLite, or MCP management."
+metadata:
+  last_updated: "2026-04-24"
+  verified_against: "current local skill refresh"
 ---
 
 # MCP Essentials Setup

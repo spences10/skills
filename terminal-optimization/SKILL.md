@@ -2,6 +2,9 @@
 name: terminal-optimization
 # prettier-ignore
 description: "Terminal setup for Claude Code. Use for Ghostty config, statusline customization, voice dictation, tmux worktrees."
+metadata:
+  last_updated: "2026-05-14"
+  verified_against: "current local skill refresh"
 compatibility: Requires Claude Code or compatible local tooling for the named workflows.
 ---
 

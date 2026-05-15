@@ -1,6 +1,9 @@
 ---
 name: nopeek
 description: "Secret-safe agent sessions via nopeek CLI. Use when user asks about secrets, .env loading, credential safety, or keeping API keys out of conversation context."
+metadata:
+  last_updated: "2026-04-25"
+  verified_against: "current local skill refresh"
 ---
 
 # nopeek — Secret Safety for Agent Sessions

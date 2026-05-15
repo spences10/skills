@@ -2,6 +2,9 @@
 name: worktree-mastery
 # prettier-ignore
 description: "Git worktree patterns for parallel agent sessions. Use when running multiple coding-agent instances on the same repo, isolating risky work, or avoiding branch/stash conflicts."
+metadata:
+  last_updated: "2026-05-10"
+  verified_against: "current local skill refresh"
 ---
 
 # Worktree Mastery

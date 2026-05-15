@@ -2,6 +2,9 @@
 name: research
 # prettier-ignore
 description: "Verify sources before presenting findings. Use when asked to research links or documentation."
+metadata:
+  last_updated: "2026-04-24"
+  verified_against: "current local skill refresh"
 ---
 
 # Verified Research

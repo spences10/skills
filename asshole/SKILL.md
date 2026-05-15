@@ -2,6 +2,9 @@
 name: asshole
 # prettier-ignore
 description: "Stop dismissing pre-existing test/build failures. Use when reporting test results, build output, or any command output containing errors or failures."
+metadata:
+  last_updated: "2026-04-24"
+  verified_against: "current local skill refresh"
 ---
 
 <!-- Credit: @fubits1 (Ilja) — https://gist.github.com/fubits1/3d6b8c2079af85a3693260fe848a5335 -->

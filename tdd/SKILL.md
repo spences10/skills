@@ -2,6 +2,9 @@
 name: tdd
 # prettier-ignore
 description: "Test-driven development with a red-green-refactor loop. Use when explicitly asked for TDD, red-green-refactor, test-first development, or integration-test-led feature work."
+metadata:
+  last_updated: "2026-05-10"
+  verified_against: "current local skill refresh"
 ---
 
 # Test-Driven Development

@@ -2,6 +2,9 @@
 name: ci-debug-workflow
 # prettier-ignore
 description: "Debug failing CI pipelines, containers, and reproduce bugs locally. Use when CI is red, containers won't start, or need to reproduce bugs."
+metadata:
+  last_updated: "2026-04-24"
+  verified_against: "current local skill refresh"
 ---
 
 # CI Debug Workflow

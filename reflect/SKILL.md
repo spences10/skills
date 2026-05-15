@@ -2,6 +2,9 @@
 name: reflect
 # prettier-ignore
 description: "Analyze session history for learnings and persist to skills. Solves \"memory zero\" - correct once, never again."
+metadata:
+  last_updated: "2026-04-24"
+  verified_against: "current local skill refresh"
 ---
 
 # Reflect

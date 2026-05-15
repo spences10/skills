@@ -2,6 +2,9 @@
 name: improve-codebase-architecture
 # prettier-ignore
 description: "Find AI-readiness architecture issues and module-deepening refactors. Use when improving codebase architecture, testability, agent navigation, seams, or refactor tickets."
+metadata:
+  last_updated: "2026-04-29"
+  verified_against: "current local skill refresh"
 ---
 
 <!-- Sources: https://www.youtube.com/watch?v=uC44zFz7JSM and https://www.youtube.com/watch?v=3MP8D-mdheA -->

@@ -2,6 +2,9 @@
 name: orchestration
 # prettier-ignore
 description: "Multi-agent orchestration patterns for Claude Code team mode. Use when coordinating teammates, decomposing complex tasks, or managing shared task lists."
+metadata:
+  last_updated: "2026-05-14"
+  verified_against: "current local skill refresh"
 compatibility: Requires Claude Code or compatible local tooling for the named workflows.
 ---
 

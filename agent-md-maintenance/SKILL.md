@@ -2,6 +2,9 @@
 name: agent-md-maintenance
 # prettier-ignore
 description: "Maintain agent instruction files effectively. Use when adding lessons learned, updating conventions, or restructuring project instructions."
+metadata:
+  last_updated: "2026-04-24"
+  verified_against: "current local skill refresh"
 ---
 
 # Agent Instruction File Maintenance

@@ -1,6 +1,9 @@
 ---
 name: ecosystem-guide
 description: "Guide to Scott's agent workflow tools. Use when choosing workflow tooling, validating skills, using recall/search/database tools, or handling secrets safely."
+metadata:
+  last_updated: "2026-05-14"
+  verified_against: "current local skill refresh"
 ---
 
 # Agent Workflow Ecosystem Guide

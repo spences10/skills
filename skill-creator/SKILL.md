@@ -2,6 +2,9 @@
 name: skill-creator
 # prettier-ignore
 description: "Design and create Agent Skills using progressive disclosure principles. Use when building new skills, planning skill architecture, or writing skill content."
+metadata:
+  last_updated: "2026-04-24"
+  verified_against: "current local skill refresh"
 ---
 
 # Skill Creator
