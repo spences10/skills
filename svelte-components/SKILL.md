@@ -2,7 +2,7 @@
 name: svelte-components
 # IMPORTANT: Keep description on ONE line for agent compatibility
 # prettier-ignore
-description: "Svelte component patterns. Use for web components, component libraries (Bits UI, Ark UI, Melt UI), form patterns, or third-party integration."
+description: "Build Svelte components. Use for Svelte custom elements, component libraries (Bits UI, Ark UI, Melt UI), form patterns, or third-party integration."
 metadata:
   last_updated: "2026-05-14"
   verified_against: "Svelte 5 official docs and current local skill refresh"

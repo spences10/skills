@@ -2,7 +2,7 @@
 name: sveltekit-remote-functions
 # IMPORTANT: Keep description on ONE line for agent compatibility
 # prettier-ignore
-description: "SvelteKit remote functions guidance. Use for query(), form(), command(), and prerender() patterns in .remote.ts files."
+description: "Implement SvelteKit remote functions. Use for query(), query.live(), form(), command(), and prerender() patterns in .remote.ts files."
 metadata:
   last_updated: "2026-05-14"
   verified_against: "Svelte 5 official docs and current local skill refresh"

@@ -1,7 +1,7 @@
 ---
 name: svelte-layerchart
 # prettier-ignore
-description: "Svelte LayerChart patterns. Use for chart components with tooltip snippets, Chart context access, and all Svelte 5 snippet patterns for tooltips, gradients, highlights, and axes."
+description: "Build Svelte LayerChart components. Use for tooltip snippets, Chart context access, gradients, highlights, axes, and Svelte 5 snippet patterns."
 metadata:
   last_updated: "2026-05-14"
   verified_against: "Svelte 5 official docs and current local skill refresh"

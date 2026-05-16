@@ -2,7 +2,7 @@
 name: svelte-runes
 # IMPORTANT: Keep description on ONE line for agent compatibility
 # prettier-ignore
-description: "Svelte 5 runes guidance. Use for reactive state, props, effects, $state.raw, $derived.by, $props, and $bindable. Prevents reactivity mistakes."
+description: "Implement Svelte 5 runes correctly. Use for reactive state, props, effects, $state.raw, $derived.by, $props, and $bindable."
 metadata:
   last_updated: "2026-05-14"
   verified_against: "Svelte 5 official docs and current local skill refresh"
