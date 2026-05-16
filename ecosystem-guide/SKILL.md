@@ -28,7 +28,6 @@ Use this as the index for the LLM tooling system in this repo. If another skill 
 
 | Need                                               | Skill                           |
 | -------------------------------------------------- | ------------------------------- |
-| Querying session/token/tool analytics              | `analytics`                     |
 | Reporting failed tests/builds honestly             | `asshole`                       |
 | Debugging CI, containers, or reproducible failures | `ci-debug-workflow`             |
 | Cleaning AI-generated code noise                   | `deslop`                        |

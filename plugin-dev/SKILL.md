@@ -1,6 +1,6 @@
 ---
 name: plugin-dev
-description: "Validate, test, and distribute Claude Code plugins and marketplaces. Use when developing plugins, debugging validation errors, or preparing for distribution."
+description: "Validate Claude Code plugin projects. Use only for .claude-plugin manifests, plugin marketplaces, or claude plugin validation."
 metadata:
   last_updated: "2026-05-14"
   verified_against: "current local skill refresh"

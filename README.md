@@ -76,7 +76,6 @@ Before releasing Svelte skill updates:
 
 ## Workflow & Tooling Skills
 
-- `analytics`
 - `asshole`
 - `ci-debug-workflow`
 - `deslop`
