@@ -38,7 +38,7 @@ Access context via the `children` snippet:
 <Chart {data} x="date" y="value">
 	{#snippet children({ context })}
 		<!-- Access scales, dimensions, tooltip state -->
-		{@const avg = mean(data, (d) => d.value)}
+		{const avg = mean(data, (d) => d.value)}
 		<Svg>
 			<Rule x={avg} />
 			<Text x={context.xScale(avg)} y={0} value="Avg" />
@@ -226,8 +226,8 @@ To avoid implicit `any` errors, type the data:
 	{#snippet children({ context })}
 		<Svg>
 			{#each seriesData as [series, data]}
-				{@const color = context.cScale?.(series)}
-				{@const active =
+				{const color = context.cScale?.(series)}
+				{const active =
 					context.tooltip.data == null ||
 					context.tooltip.data.series === series}
 				<g class={!active ? 'opacity-20' : ''}>

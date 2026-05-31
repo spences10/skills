@@ -82,23 +82,24 @@ Use optional chaining for optional snippets:
 {@render footer?.()}
 ```
 
-## {@const ...}
+## Declaration tags: `{let ...}` / `{const ...}`
 
-Declares local constants within template blocks. Useful in `{#each}` and
-`{#if}`.
+Declares local variables within markup. Useful in `{#each}` and `{#if}`.
+Use `let` or `const` only; `var`, `function`, and trailing semicolons are invalid.
+`{@const ...}` is legacy syntax.
 
 ```svelte
 {#each items as item}
-	{@const fullName = `${item.firstName} ${item.lastName}`}
-	{@const isLongName = fullName.length > 20}
+	{const full_name = `${item.first_name} ${item.last_name}`}
+	{const is_long_name = full_name.length > 20}
 
-	<div class={[{ truncate: isLongName }]}>
-		{fullName}
+	<div class={[{ truncate: is_long_name }]}>
+		{full_name}
 	</div>
 {/each}
 ```
 
-### Why Use @const?
+### Why Use Declaration Tags?
 
 - Avoids recalculating values multiple times in a block
 - Makes complex expressions more readable

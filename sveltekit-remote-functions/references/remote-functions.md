@@ -241,7 +241,7 @@ isolated state.
 
 ```svelte
 {#each todos as todo}
-	{@const modify = modifyTodo.for(todo.id)}
+	{const modify = modifyTodo.for(todo.id)}
 	<form {...modify}>
 		<input {...modify.fields.description.as('text', todo.description)} />
 		<button disabled={!!modify.pending}>Save</button>

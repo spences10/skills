@@ -4,8 +4,8 @@ name: sveltekit-structure
 # prettier-ignore
 description: "SvelteKit structure guidance. Use for routing, layouts, error handling, SSR, or svelte:boundary. Covers file naming, nested layouts, error boundaries, pending UI, and hydration."
 metadata:
-  last_updated: "2026-05-14"
-  verified_against: "Svelte 5 official docs and current local skill refresh"
+  last_updated: "2026-05-31"
+  verified_against: "Svelte 5 official docs and sveltejs/svelte#18282"
 ---
 
 # SvelteKit Structure

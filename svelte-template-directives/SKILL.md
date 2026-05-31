@@ -1,10 +1,10 @@
 ---
 name: svelte-template-directives
 # prettier-ignore
-description: "Svelte template directive guidance. Use when working with snippets, attachments, dynamic HTML, block constants, debugging tags, or global DOM events."
+description: "Svelte template directive guidance. Use when working with snippets, attachments, dynamic HTML, declaration tags, debugging tags, or global DOM events."
 metadata:
-  last_updated: "2026-05-14"
-  verified_against: "Svelte 5 official docs and current local skill refresh"
+  last_updated: "2026-05-31"
+  verified_against: "Svelte 5 official docs and sveltejs/svelte#18282"
 ---
 
 # Svelte Template Directives
@@ -34,15 +34,15 @@ change, passes through components via spread, supports cleanup functions.
 
 ## Quick Reference
 
-| Directive        | Purpose                        | Reactive? |
-| ---------------- | ------------------------------ | --------- |
-| `{@attach}`      | DOM manipulation, 3rd-party    | Yes       |
-| `{@html}`        | Render raw HTML strings        | Yes       |
-| `{@render}`      | Render snippets                | Yes       |
-| `{@const}`       | Local constants in blocks      | N/A       |
-| `{@debug}`       | Pause debugger on value change | N/A       |
-| `{#each (key)}`  | Keyed iteration (always key!)  | Yes       |
-| `<svelte:window>` | Window event listeners        | N/A       |
+| Directive                   | Purpose                        | Reactive? |
+| --------------------------- | ------------------------------ | --------- |
+| `{@attach}`                 | DOM manipulation, 3rd-party    | Yes       |
+| `{@html}`                   | Render raw HTML strings        | Yes       |
+| `{@render}`                 | Render snippets                | Yes       |
+| `{let ...}` / `{const ...}` | Local declarations in markup   | N/A       |
+| `{@debug}`                  | Pause debugger on value change | N/A       |
+| `{#each (key)}`             | Keyed iteration (always key!)  | Yes       |
+| `<svelte:window>`           | Window event listeners         | N/A       |
 
 ## @attach vs use: Actions
 
@@ -58,7 +58,7 @@ change, passes through components via spread, supports cleanup functions.
 - [attach-patterns.md](references/attach-patterns.md) - Real-world @attach
   examples
 - [other-directives.md](references/other-directives.md) - @html, @render,
-  @const, @debug
+  declaration tags, @debug
 
 ## Notes
 
@@ -67,7 +67,8 @@ change, passes through components via spread, supports cleanup functions.
 - Attachments pass through wrapper components when you spread props
 - Always use keyed each blocks — never use index as key
 - Use `<svelte:window>`/`<svelte:document>` for global events, not `$effect`
-- **Last verified:** 2026-05-14
+- Use `{const ...}` / `{let ...}` declaration tags for local markup variables; `{@const ...}` is legacy syntax.
+- **Last verified:** 2026-05-31
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:

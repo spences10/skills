@@ -22,31 +22,25 @@
 
 ## Pending UI (Loading States)
 
-> **⚠️ Known Bug:** `<svelte:boundary>` + `{@const await}` causes
-> infinite navigation loops during client-side page transitions when
-> pages share async queries. See
-> [sveltejs/svelte#17717](https://github.com/sveltejs/svelte/issues/17717).
-> Use `{#await}` blocks until this is fixed.
-
-With `experimental.async: true` (Svelte 5.36+), `{@const await}` is
-possible but **not safe for pages with shared queries or navigation**:
+With `experimental.async: true` (Svelte 5.36+), use declaration tags for
+local awaited values inside boundaries. `{@const ...}` is legacy syntax.
 
 ```svelte
-<!-- ⚠️ Causes navigation loops - use {#await} instead -->
 <svelte:boundary>
 	{#snippet pending()}
 		<LoadingSpinner />
 	{/snippet}
 
-	{@const data = await loadData()}
+	{const data = await load_data()}
 	<DataView {data} />
 </svelte:boundary>
 ```
 
-**Safe alternative:**
+For pages with shared queries or navigation-sensitive data, `{#await}` remains
+the safest explicit loading pattern:
 
 ```svelte
-{#await loadData()}
+{#await load_data()}
 	<LoadingSpinner />
 {:then data}
 	<DataView {data} />
@@ -146,5 +140,5 @@ Inner boundary catches first:
 - `failed` snippet replaces content on error
 - `reset` function lets users retry
 - Errors in event handlers are NOT caught
-- Requires `experimental.async: true` in svelte.config.js for `{@const await}`
-- **⚠️ Bug:** `{@const await}` + navigation causes infinite loops ([#17717](https://github.com/sveltejs/svelte/issues/17717)) — use `{#await}` instead
+- Requires `experimental.async: true` in svelte.config.js for `await` in declaration tags
+- Prefer `{const value = await ...}` over legacy `{@const ...}` syntax

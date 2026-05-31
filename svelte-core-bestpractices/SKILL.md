@@ -3,8 +3,8 @@ name: svelte-core-bestpractices
 # prettier-ignore
 description: "Svelte 5 core best practices. Use when creating, editing, or reviewing .svelte, .svelte.ts, or .svelte.js files. Routes to deeper Svelte skills."
 metadata:
-  last_updated: "2026-05-14"
-  verified_against: "Svelte 5 official docs and current local skill refresh"
+  last_updated: "2026-05-31"
+  verified_against: "Svelte 5 official docs and sveltejs/svelte#18282"
 ---
 
 <!-- Inspired by the official Svelte AI `svelte-core-bestpractices` skill: https://svelte.dev/docs/ai/skills -->
@@ -22,6 +22,7 @@ Use this as the baseline for any Svelte 5 component/module work, then load the f
 - Treat props as changing over time; derive values from props with `$derived`.
 - Use `onclick={...}` and other event properties, not legacy event directives.
 - Use snippets and `{@render ...}` for component content.
+- Use `{let ...}` / `{const ...}` declaration tags for local markup variables; `{@const ...}` is legacy syntax.
 - Use keyed `{#each}` blocks; never use array indexes as keys.
 - Use CSS custom properties and `style:` for dynamic styling.
 - Prefer class arrays/objects in `class={...}` for conditional classes.
@@ -43,4 +44,4 @@ Use this as the baseline for any Svelte 5 component/module work, then load the f
 - Effects do not run on the server; don't wrap effect bodies in `if (browser)`.
 - Use `$inspect.trace(label)` to debug unexpected reactivity.
 - Async Svelte features require the relevant experimental config.
-- **Last verified:** 2026-05-14
+- **Last verified:** 2026-05-31
