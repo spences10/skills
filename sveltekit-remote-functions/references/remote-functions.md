@@ -133,6 +133,41 @@ Notes:
 - Use `.run()` outside render for imperative access; it returns `Promise<AsyncGenerator<T>>`.
 - Do not cache live query responses in a service worker. Exclude responses whose `Cache-Control` header includes `no-store`, otherwise cloned streaming responses can keep running after the page closes.
 
+### Event-driven live queries
+
+Prefer event-driven notification over timer polling when mutations know exactly
+when data changed. A small in-memory listener set is fine for demos and local
+single-process tools; production multi-instance apps should replace it with a
+DB notification channel, queue, pub/sub, or another cross-process signal.
+
+```ts
+import { form, query } from '$app/server';
+import * as v from 'valibot';
+
+const poll_results = { yes: 0, no: 0 };
+const listeners = new Set<() => void>();
+
+export const get_poll = query.live(async function* () {
+	while (true) {
+		yield poll_results;
+		const { promise, resolve } = Promise.withResolvers<void>();
+		listeners.add(resolve);
+		await promise;
+	}
+});
+
+export const cast_vote = form(
+	v.object({ option: v.picklist(['yes', 'no']) }),
+	async ({ option }) => {
+		poll_results[option] += 1;
+		for (const listener of listeners) listener();
+		listeners.clear();
+	},
+);
+```
+
+Good fits: job/render progress, dashboards, notifications, live polls, lightweight chat, and agent/task status feeds. Add authorization, persistence, cleanup, and backpressure before using this pattern for production traffic.
+
 ## form()
 
 Use `form()` for mutations that should gracefully degrade when JavaScript is

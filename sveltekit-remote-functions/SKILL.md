@@ -4,8 +4,8 @@ name: sveltekit-remote-functions
 # prettier-ignore
 description: "Implement SvelteKit remote functions. Use for query(), query.live(), form(), command(), and prerender() patterns in .remote.ts files."
 metadata:
-  last_updated: "2026-05-31"
-  verified_against: "Svelte 5 official docs and sveltejs/svelte#18282"
+  last_updated: "2026-06-03"
+  verified_against: "Svelte 5 official docs, sveltejs/svelte#18282, and query.live video examples"
 ---
 
 # SvelteKit Remote Functions
@@ -82,6 +82,7 @@ Client:
 - Validate exposed inputs with Standard Schema (`valibot`, `zod`, `arktype`, etc.) or use `.unchecked`/`'unchecked'` deliberately.
 - `query.batch()` batches calls from the same macrotask to solve n+1 reads.
 - `query.live()` returns an async iterable; SSR uses the first yield, clients stay connected while rendered.
+- Prefer event-driven live queries over polling when a mutation can notify listeners (`Promise.withResolvers()`/pubsub).
 - Live queries expose `connected` and `reconnect()`, but no `refresh()`; `.run()` returns `Promise<AsyncGenerator<T>>`.
 - Do not service-worker-cache live query responses; exclude `Cache-Control: no-store` streams.
 - `form().enhance()` `submit()` returns `true` when submission is valid/successful and `false` for validation failures.
