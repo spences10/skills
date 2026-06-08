@@ -4,22 +4,28 @@ name: sveltekit-remote-functions
 # prettier-ignore
 description: "Implement SvelteKit remote functions. Use for query(), query.live(), form(), command(), and prerender() patterns in .remote.ts files."
 metadata:
-  last_updated: "2026-06-03"
-  verified_against: "Svelte 5 official docs, sveltejs/svelte#18282, and query.live video examples"
+  last_updated: "2026-06-08"
+  verified_against: "Svelte 5/Kit docs, sveltejs/svelte#18282, query.live examples, and SvelteKit Vite-plugin config post"
 ---
 
 # SvelteKit Remote Functions
 
 ## Current Status
 
-Remote functions are **experimental** in SvelteKit 2.58. Enable them in
-`svelte.config.js`:
+Remote functions are **experimental** in SvelteKit 2.58. Prefer enabling them in `vite.config.ts` via the SvelteKit Vite plugin:
 
-```js
-export default {
-	kit: { experimental: { remoteFunctions: true } },
-	compilerOptions: { experimental: { async: true } }, // only for await in components
-};
+```ts
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+	plugins: [
+		sveltekit({
+			experimental: { remoteFunctions: true },
+			compilerOptions: { experimental: { async: true } } // only for await in components
+		})
+	]
+});
 ```
 
 ## Quick Start
@@ -77,6 +83,7 @@ Client:
 
 ## Current Rules
 
+- `svelte.config.js` still works in Kit 2, but Kit 3 will read Kit config from the Vite plugin instead.
 - Remote functions always run on the server, even when called from the browser.
 - Args/returns use `devalue`; avoid functions, class instances, symbols, circular refs, and `RegExp`.
 - Validate exposed inputs with Standard Schema (`valibot`, `zod`, `arktype`, etc.) or use `.unchecked`/`'unchecked'` deliberately.
@@ -93,7 +100,7 @@ Client:
 - For live queries, single-flight mutations can call `void live_query.reconnect()`.
 - Prefer `form()` over `command()` where progressive enhancement matters.
 - Use `prerender()` for data that changes at most once per deployment.
-- **Last verified:** 2026-05-14
+- **Last verified:** 2026-06-08
 
 ## Reference Files
 

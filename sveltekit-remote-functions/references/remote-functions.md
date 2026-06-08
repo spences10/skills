@@ -1,27 +1,30 @@
 # SvelteKit Remote Functions
 
-Verified against the SvelteKit remote functions docs on 2026-05-10.
+Verified against the SvelteKit remote functions docs and Vite-plugin config support on 2026-06-08.
 
 Remote functions are exported from `.remote.ts`/`.remote.js` files and can be
 called anywhere in the app. They always execute on the server. On the client,
 SvelteKit transforms calls into generated `fetch` requests.
 
-Remote functions are still experimental. Enable them explicitly:
+Remote functions are still experimental. Prefer enabling them through the SvelteKit Vite plugin (Kit 2 also still supports `svelte.config.js`; Kit 3 will not read it):
 
-```js
-// svelte.config.js
-export default {
-	kit: {
-		experimental: {
-			remoteFunctions: true
-		}
-	},
-	compilerOptions: {
-		experimental: {
-			async: true // optional; needed for `await` in components
-		}
-	}
-};
+```ts
+// vite.config.ts
+import { sveltekit } from '@sveltejs/kit/vite';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+	plugins: [
+		sveltekit({
+			experimental: { remoteFunctions: true },
+			compilerOptions: {
+				experimental: {
+					async: true // optional; needed for `await` in components
+				}
+			}
+		})
+	]
+});
 ```
 
 Remote files can live anywhere under `src` except `src/lib/server`.

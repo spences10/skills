@@ -4,13 +4,15 @@ name: svelte-deployment
 # prettier-ignore
 description: "Svelte deployment guidance. Use for adapters, Vite config, pnpm setup, library authoring, PWA, or production builds."
 metadata:
-  last_updated: "2026-05-14"
-  verified_against: "Svelte 5 official docs and current local skill refresh"
+  last_updated: "2026-06-08"
+  verified_against: "Svelte 5/Kit docs, sveltejs/kit#15934, SvelteKit Vite-plugin config post"
 ---
 
 # Svelte Deployment
 
 ## Quick Start
+
+**SvelteKit config:** Prefer putting Kit options in `vite.config.ts` via `sveltekit({ ... })`. `svelte.config.js` is optional in Kit 2 and will not be read by Kit 3.
 
 **pnpm 10+:** Add prepare script (postinstall disabled by default):
 
@@ -22,10 +24,23 @@ metadata:
 }
 ```
 
-**Vite 7:** Update both packages together:
+**Vite config example:**
 
-```bash
-pnpm add -D vite@7 @sveltejs/vite-plugin-svelte@6
+```ts
+// vite.config.ts
+import { sveltekit } from '@sveltejs/kit/vite';
+import adapter from '@sveltejs/adapter-vercel';
+import { defineConfig } from 'vite';
+
+export default defineConfig({
+	plugins: [
+		sveltekit({
+			adapter: adapter(),
+			compilerOptions: { experimental: { async: true } },
+			experimental: { remoteFunctions: true }
+		})
+	]
+});
 ```
 
 ## Adapters
@@ -54,7 +69,8 @@ pnpm add -D @sveltejs/adapter-cloudflare
 - Cloudflare may strip `Transfer-Encoding: chunked` (breaks streaming)
 - Library authors: include `svelte` in keywords AND peerDependencies
 - Single-file bundle: `kit.output.bundleStrategy: 'single'`
-- **Last verified:** 2026-05-14
+- VS Code/svelte-check/SvelteKit can read Kit config from the Vite plugin via `@sveltejs/load-config`.
+- **Last verified:** 2026-06-08
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:

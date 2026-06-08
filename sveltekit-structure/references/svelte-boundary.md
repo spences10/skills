@@ -140,5 +140,5 @@ Inner boundary catches first:
 - `failed` snippet replaces content on error
 - `reset` function lets users retry
 - Errors in event handlers are NOT caught
-- Requires `experimental.async: true` in svelte.config.js for `await` in declaration tags
+- Requires `experimental.async: true` in Svelte compiler options (prefer the SvelteKit Vite plugin config) for `await` in declaration tags
 - Prefer `{const value = await ...}` over legacy `{@const ...}` syntax

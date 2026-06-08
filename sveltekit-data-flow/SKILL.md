@@ -4,13 +4,15 @@ name: sveltekit-data-flow
 # prettier-ignore
 description: "SvelteKit data flow guidance. Use when working with load functions, form actions, server/client boundaries, serialization, or invalidation."
 metadata:
-  last_updated: "2026-05-14"
-  verified_against: "Svelte 5 official docs and current local skill refresh"
+  last_updated: "2026-06-08"
+  verified_against: "Svelte 5/Kit docs and sveltejs/kit#15934"
 ---
 
 # SvelteKit Data Flow
 
 ## Quick Start
+
+**Environment variables:** Prefer explicit env vars (`src/env.ts` + `$app/env/private|public`) when the experimental flag is enabled.
 
 **Which file?** Server-only (DB/secrets): `+page.server.ts` |
 Universal (runs both): `+page.ts` | API: `+server.ts`
@@ -57,13 +59,16 @@ export const actions = {
   fail/redirect/error
 - [client-auth-invalidation.md](references/client-auth-invalidation.md) -
   invalidateAll() after client-side auth
+- [explicit-environment-variables.md](references/explicit-environment-variables.md) -
+  typed, validated env vars
 
 ## Notes
 
 - Server load → universal load via `data` param | ALWAYS
   `throw redirect()/error()`
 - No class instances/functions from server load (not serializable)
-- **Last verified:** 2026-05-14
+- `$app/env/private` is server-only; only mark genuinely safe values as public
+- **Last verified:** 2026-06-08
 
 <!--
 PROGRESSIVE DISCLOSURE GUIDELINES:
