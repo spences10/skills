@@ -1,42 +1,45 @@
 ---
 name: orchestration
 # prettier-ignore
-description: "Coordinate parallel agent work. Use when decomposing complex tasks, running review/implementation in parallel, managing task lists, or isolating work with branches/worktrees."
+description: "Coordinate parallel agent work. Use when decomposing complex tasks, running review/implementation in parallel, managing task lists, or choosing shared vs isolated workspaces."
 metadata:
-  last_updated: "2026-05-15"
+  last_updated: "2026-07-04"
   verified_against: "current local skill refresh"
 ---
 
 # Orchestration
 
-Coordinate multi-agent or multi-session coding work without file conflicts or duplicated effort. Stay harness-agnostic: use built-in team/subagent features when available, or manual git worktrees when not.
+Coordinate multi-agent or multi-session coding work without duplicated effort, context loss, or unnecessary integration overhead. Stay harness-agnostic: use whatever task, teammate, subagent, or mailbox primitives are available, and keep git worktrees as an explicit isolation choice rather than the default.
 
 ## When to Use
 
 - Complex work that can split by domain, file area, or risk level
-- Parallel review, implementation, test, or documentation passes
-- Background research while the main session implements
-- Risky changes that should be isolated in branches or worktrees
+- Parallel review, research, testing, or documentation passes
+- Background investigation while the lead preserves high-value context
+- Risky changes where isolation may be worth the setup and merge cost
 
 ## Core Rules
 
 - Assign clear ownership: one agent/session owns each file or subsystem.
-- Prefer 3-5 parallel workers; more usually adds coordination overhead.
+- Keep the lead session responsible for synthesis, review, and final decisions.
+- Prefer one mutating worker in the shared cwd/current branch unless parallel edits are clearly independent.
+- Use parallel workers freely for read-only research, review, logs, CI, or test investigation.
 - Create a shared task list with dependencies and acceptance criteria.
 - Require concise handoff notes: files touched, decisions made, validation run, blockers.
-- Synthesize results in the lead session before merging or committing.
+- If the harness supports read-only/mutating flags, mark file-editing workers as mutating.
 
-## Worktree Pattern
+## Workspace Choice
 
-Use git worktrees when parallel sessions may mutate files:
+Default to the current shared workspace for small, sequential, or tightly-coupled changes. It keeps local env, ignored files, ports, databases, and devcontainers intact.
 
-```bash
-git worktree add ../project-review main
-git worktree add ../project-refactor main
-git worktree list
-```
+Use isolated workspaces — git worktrees, cloned checkouts, containers, VMs, or cloud previews — only when the isolation benefit beats setup/runtime/integration cost.
 
-Each session works in its own directory, then syncs through commits, branches, or patches.
+Before choosing a worktree, answer:
+
+- How are ignored files, dependencies, `.env`, generated files, and package caches handled?
+- Are ports, databases, queues, and local services isolated?
+- Who integrates the branch/patch and resolves semantic conflicts?
+- How is cleanup handled after review?
 
 ## Decomposition Patterns
 

@@ -1,5 +1,15 @@
 # Cleanup
 
+Clean up isolated workspaces deliberately. Worktree removal does not integrate changes, delete every branch, or preserve untracked files for you.
+
+## Before Removing a Worktree
+
+- [ ] Confirm whether the work should be committed, stashed, patched, or discarded
+- [ ] Check for untracked files worth saving
+- [ ] Record validation and handoff notes
+- [ ] Push or preserve branches you want to keep
+- [ ] Confirm the lead/integrator has reviewed the result
+
 ## Remove Worktrees
 
 ```bash
@@ -25,42 +35,23 @@ git worktree prune --dry-run
 git worktree prune -v
 ```
 
-## Full Cleanup Script
+## Branch Cleanup
+
+Worktree removal does not delete branches:
 
 ```bash
-#!/bin/bash
-# cleanup-worktrees.sh
+# Delete local branch after worktree removal
+git branch -d feature-branch
 
-# List current worktrees
-echo "Current worktrees:"
-git worktree list
-
-# Remove all non-main worktrees
-for wt in $(git worktree list --porcelain | grep "^worktree" | cut -d' ' -f2); do
-  if [[ "$wt" != "$(pwd)" ]]; then
-    echo "Removing: $wt"
-    git worktree remove --force "$wt" 2>/dev/null || true
-  fi
-done
-
-# Prune stale references
-git worktree prune -v
-
-echo "Remaining:"
-git worktree list
+# Force delete if unmerged and intentionally discarded
+git branch -D feature-branch
 ```
 
-## Cleanup Checklist
-
-Before removing worktrees:
-
-- [ ] Commit or stash valuable changes
-- [ ] Push branches you want to keep
-- [ ] Check for untracked files worth saving
+Only delete branches after confirming the useful work is merged, cherry-picked, patched, or intentionally abandoned.
 
 ## Disk Space Recovery
 
-Worktrees share `.git` but duplicate working files.
+Worktrees share `.git` but duplicate working files and dependency directories.
 
 ```bash
 # Check worktree sizes
@@ -87,14 +78,6 @@ Directory deleted manually. Prune metadata:
 git worktree prune
 ```
 
-### Branch still exists after removal
+### Shared runtime conflicts
 
-Worktree removal doesn't delete branches:
-
-```bash
-# Delete local branch after worktree removal
-git branch -d feature-branch
-
-# Force delete if unmerged
-git branch -D feature-branch
-```
+Worktrees do not isolate ports, databases, queues, or containers. Stop or rename local services before assuming a git cleanup fixed the environment.
