@@ -82,6 +82,7 @@ Before releasing Svelte skill updates:
 - `ecosystem-guide`
 - `improve-codebase-architecture`
 - `nopeek`
+- `operating-tailscale-agent-hosts`
 - `orchestration`
 - `plugin-dev`
 - `reflect`
